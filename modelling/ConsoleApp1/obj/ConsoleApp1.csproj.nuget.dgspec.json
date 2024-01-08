@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\modelling\\modelling.csproj": {}
+    "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\modelling\\modelling.csproj": {
+    "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\modelling\\modelling.csproj",
-        "projectName": "modelling",
-        "projectPath": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\modelling\\modelling.csproj",
+        "projectUniqueName": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectName": "ConsoleApp1",
+        "projectPath": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\ConsoleApp1\\ConsoleApp1.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\modelling\\obj\\",
+        "outputPath": "C:\\Users\\user\\OneDrive - Bradford Grammar School\\Documents\\GitHub\\NEA\\modelling\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,12 +39,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "OpenTK": {
-              "target": "Package",
-              "version": "[4.8.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
