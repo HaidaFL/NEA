@@ -17,23 +17,31 @@ namespace _a
 
     public class Game : GameWindow
     {
-        int Handle;  //shader thingy, can put in a shader class for organisation later if i want
+
+        int VertexArrayObject;
 
         int VertexBufferObject;
+
+        int ElementBufferObject;
+
+        int Handle;  //shader thingy, can put in a shader class for organisation later if i want
 
         int VertexBufferArray;
 
         float[] _vertices = {
+         0.5f,  0.5f, 0.0f,  // top right
+         0.5f, -0.5f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,  // bottom left
+        -0.5f,  0.5f, 0.0f   // top left
+        };
+        uint[] _indices = {  // note that we start from 0!
 
-      -0.5f, -0.5f, 0.0f, //Bottom-left vertex
+         0, 1, 3,   // first triangle
 
-       0.5f, -0.5f, 0.0f, //Bottom-right vertex
+         1, 2, 3    // second triangle
 
-       0.0f,  0.5f, 0.0f  //Top vertex
-
-       };
-
-        #region  // this passes glsl code into gpu
+        };
+        #region  
         //tutorial:
         string _position = @"
          #version 330 core
@@ -58,7 +66,7 @@ namespace _a
          }";
         */
         #endregion
-
+        // gsls code strings above and belowS
         #region
         //tutorial:
         string _colour = @"
@@ -84,7 +92,6 @@ namespace _a
         ";
         */
         #endregion
-        string vec4 = @"uniform vec4 drawColor;";
 
         public Game(int width, int height, string title)
             : base(GameWindowSettings.Default, new NativeWindowSettings()
@@ -94,43 +101,90 @@ namespace _a
         }
         protected override void OnUnload()
         {
+            // unbind all the resources by binding the targets to 0/null.
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.BindVertexArray(0);
+            GL.UseProgram(0);
+
+            // delete all the resources.
+            GL.DeleteBuffer(VertexBufferObject);
+            GL.DeleteVertexArray(VertexArrayObject);
+
             GL.DeleteProgram(Handle);
+
+            base.OnUnload();
         }
 
         protected override void OnLoad()
         {
             base.OnLoad();
+                
+            GL.ClearColor(0.8f, 0.3f, 0.1f, 1.0f);  //chooses colour background
 
-            int VertexArrayObject = GL.GenVertexArray(); //VAO's  
+            VertexArrayObject = GL.GenVertexArray(); //VAO's  
+            VertexBufferObject = GL.GenBuffer();      
+            ElementBufferObject = GL.GenBuffer();
+
             GL.BindVertexArray(VertexArrayObject);       //VAO's
 
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);   /*very important VAO
-                                                                                                        * IM OVER HERE, LEARN AND EXPLAIN OVER HERE WHAT THE PARAMETERS MEAN, need understand VAOs
-                                                                                                        * 
-                                                                                                        * 
-                                                                                                        */
-            GL.EnableVertexAttribArray(0);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ElementBufferObject);
 
-
-
-
-            GL.ClearColor(0.5f, 0.3f, 0.3f, 1.0f);  //chooses colour background
-
-            VertexBufferObject = GL.GenBuffer();
+            GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
 
             GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
 
+            
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);   /*very important VAO
+                                                                                                        * IM OVER HERE, LEARN AND EXPLAIN OVER HERE WHAT THE PARAMETERS MEAN, need understand VAOsS
+                                                                                                        */
+            GL.EnableVertexAttribArray(0);
+            
+            GL.UseProgram(Handle);
+
+            VertexBufferObject = GL.GenBuffer();
+            GL.EnableVertexAttribArray(VertexArrayObject);
+
+
             //GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             //GL.DeleteBuffer(VertexBufferObject);         // these 2 lines may need to be removed or put somewhere else
-  
+
             Handle = CreateProgram(_position, _colour);
 
             //Code goes here
         }
 
-        
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            base.OnRenderFrame(e);
+
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            GL.UseProgram(Handle);
+
+            GL.BindVertexArray(VertexArrayObject);
+
+            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);   //dont put this back in, it is an alternative tho
+
+            GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
+
+            SwapBuffers();
+        }
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+
+            var input = KeyboardState;
+
+            if (KeyboardState.IsAnyKeyDown)
+            {
+                Console.WriteLine("balls");
+            }
+        }
+
+
         int CreateShader(ShaderType type, string source)
         {
             int status;
@@ -164,19 +218,6 @@ namespace _a
             base.OnResize(e);
 
             GL.Viewport(0, 0, e.Width, e.Height);
-        }
-
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            base.OnUpdateFrame(e);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-            // GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
-            if (KeyboardState.IsAnyKeyDown)
-            {
-                Console.WriteLine("balls");
-            }
-            SwapBuffers();
         }
     }
 }
