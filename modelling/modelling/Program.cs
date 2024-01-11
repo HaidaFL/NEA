@@ -1,59 +1,62 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 
-
-using (_a.Game game = new _a.Game(800, 600, "hello"))
+  //progress, on the vectors page, changed gsls code, not sure where to put the transformations code at start of "in practice)
+using (Game game = new Game(800, 600, "hello"))
 {
 
     game.Run();
 
 }
-namespace _a
-{
-    //add co-ordinates
 
     public class Game : GameWindow
     {
 
-        int VertexArrayObject;
+        int vertexArrayObject;
 
-        int VertexBufferObject;
+        int vertexBufferObject;
 
-        int ElementBufferObject;
+        int elementBufferObject;
 
-        int Handle;  //shader thingy, can put in a shader class for organisation later if i want
+        int handle;  //shader thingy, can put in a shader class for organisation later if i want
 
-        int VertexBufferArray;
+       // int vertexBufferArray;
 
-        float[] _vertices = {
+        float[] vertices = {
          0.5f,  0.5f, 0.0f,  // top right
          0.5f, -0.5f, 0.0f,  // bottom right
         -0.5f, -0.5f, 0.0f,  // bottom left
         -0.5f,  0.5f, 0.0f   // top left
         };
-        uint[] _indices = {  // note that we start from 0!
+        uint[] indices = {  // note that we start from 0!
 
-         0, 1, 3,   // first triangle
+         0, 1, 3,    // first triangle
 
-         1, 2, 3    // second triangle
+         1, 2, 3,    // second triangle
 
+        // 2, 5, 6    // misc triangle
         };
-        #region  
-        //tutorial:
-        string _position = @"
+
+        #region position_gsls(str-property)
+        //tutorial: 
+        string position = @"
          #version 330 core
-         layout (location = 0) in vec3 aPos; // the position variable has attribute position 0
+         layout (location = 0) in vec3 aPos;
+         layout (location = 1) in vec2 aTexCoord;
+
+         out vec2 TexCoord;
   
-         out vec4 vertexColor; // specify a color output to the fragment shader
+         uniform mat4 transform;
 
          void main()
-         {
-             gl_Position = vec4(aPos, 1.0); // see how we directly give a vec3 to vec4's constructor
-             vertexColor = vec4(0.5, 0.0, 0.0, 1.0); // set the output variable to a dark-red color
-         }";
+        {
+           gl_Position = vec4(aPos, 1.0f) * transform;
+           TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+        }";
         /* //my kind frend from discord:
          string _position = @"     
          #version 330
@@ -66,10 +69,9 @@ namespace _a
          }";
         */
         #endregion
-        // gsls code strings above and belowS
-        #region
+        #region fragment_gsls(str-property)
         //tutorial:
-        string _colour = @"
+        string colour = @"
          #version 330 core
          out vec4 FragColor;
   
@@ -107,10 +109,10 @@ namespace _a
             GL.UseProgram(0);
 
             // delete all the resources.
-            GL.DeleteBuffer(VertexBufferObject);
-            GL.DeleteVertexArray(VertexArrayObject);
+            GL.DeleteBuffer(vertexBufferObject);
+            GL.DeleteVertexArray(vertexArrayObject);
 
-            GL.DeleteProgram(Handle);
+            GL.DeleteProgram(handle);
 
             base.OnUnload();
         }
@@ -121,19 +123,19 @@ namespace _a
                 
             GL.ClearColor(0.8f, 0.3f, 0.1f, 1.0f);  //chooses colour background
 
-            VertexArrayObject = GL.GenVertexArray(); //VAO's  
-            VertexBufferObject = GL.GenBuffer();      
-            ElementBufferObject = GL.GenBuffer();
+            vertexArrayObject = GL.GenVertexArray(); //VAO's  
+            vertexBufferObject = GL.GenBuffer();      
+            elementBufferObject = GL.GenBuffer();
 
-            GL.BindVertexArray(VertexArrayObject);       //VAO's
+            GL.BindVertexArray(vertexArrayObject);       //VAO's
 
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ElementBufferObject);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
 
-            GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
 
-            GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
             
 
@@ -142,16 +144,17 @@ namespace _a
                                                                                                         */
             GL.EnableVertexAttribArray(0);
             
-            GL.UseProgram(Handle);
+            GL.UseProgram(handle);
 
-            VertexBufferObject = GL.GenBuffer();
-            GL.EnableVertexAttribArray(VertexArrayObject);
+            vertexBufferObject = GL.GenBuffer();
+            GL.EnableVertexAttribArray(vertexArrayObject);
 
 
             //GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             //GL.DeleteBuffer(VertexBufferObject);         // these 2 lines may need to be removed or put somewhere else
 
-            Handle = CreateProgram(_position, _colour);
+            handle = CreateProgram(position, colour);
+
 
             //Code goes here
         }
@@ -162,13 +165,20 @@ namespace _a
 
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            GL.UseProgram(Handle);
+            GL.UseProgram(handle);
 
-            GL.BindVertexArray(VertexArrayObject);
+            GL.BindVertexArray(vertexArrayObject);
 
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);   //dont put this back in, it is an alternative tho
+        //Vector4 vec = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+        //Matrix4 trans = Matrix4.CreateTranslation(1f, 1f, 0.0f);
+        //vec *= trans;
+        //Console.WriteLine("{0}, {1}, {2}", vec.X, vec.Y, vec.Z);    // funny
 
-            GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
+        //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);   //dont put this back in, it is an alternative tho
+        Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90.0f));
+        Matrix4 scale = Matrix4.CreateScale(0.5f, 0.5f, 0.5f);
+        Matrix4 trans = rotation * scale;
+        GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
 
             SwapBuffers();
         }
@@ -220,4 +230,4 @@ namespace _a
             GL.Viewport(0, 0, e.Width, e.Height);
         }
     }
-}
+
