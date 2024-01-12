@@ -98,6 +98,7 @@ using (Game game = new Game(800, 600, "hello"))
      } ";
     string position = @"
      #version 330 core
+     layout (location = 0) in vec3 aPos;
 
      layout(location = 0) in vec3 aPosition;
 
@@ -107,9 +108,12 @@ using (Game game = new Game(800, 600, "hello"))
  
      // Add a uniform for the transformation matrix.
      uniform mat4 transform;
-
+     uniform mat4 model;
+     uniform mat4 view;
+     uniform mat4 projection;
      void main(void)
      {
+      gl_Position =  vec4(aPos, 1.0) * model * view * projection;
       texCoord = aTexCoord;
 
       // Then all you have to do is multiply the vertices by the transformation matrix, and you'll see your transformation in the scene!
@@ -228,29 +232,46 @@ using (Game game = new Game(800, 600, "hello"))
         Matrix4 scale = Matrix4.CreateScale(0.5f, 0.5f, 0.5f);
         trans = rotation * scale;
 
-        GL.UseProgram(handle);
+            GL.UseProgram(handle);
 
         int location = GL.GetUniformLocation(handle, "transform");
 
-        GL.UniformMatrix4(location, true, ref trans);
+            GL.UniformMatrix4(location, true, ref trans);
 
-        GL.BindVertexArray(vertexArrayObject);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.Enable(EnableCap.DepthTest);
+
         #region
-        //Matrix4.CreateOrthographicOffCenter(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
-        //Matrix4 model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-55.0f));
-        //Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
-        //GL.Viewport();
         
+        Matrix4 model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-55.0f));
+        model = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(time));
+
+        Matrix4 view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
+
+        Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), width / height, 0.1f, 100.0f);
+        
+
+          GL.UseProgram(handle);
+
+        int locationM = GL.GetUniformLocation(handle, "model");     //make location variable names better
+
+          GL.UniformMatrix4(locationM, true, ref model);
+          GL.UseProgram(handle);
+
+        int locationV = GL.GetUniformLocation(handle, "view");
+
+            GL.UniformMatrix4(locationV, true, ref view);
+            GL.UseProgram(handle);
+
+        int locationP = GL.GetUniformLocation(handle, "projection");
+
+            GL.UniformMatrix4(locationP, true, ref projection);
         #endregion
+
+            GL.BindVertexArray(vertexArrayObject);
         time += 1;
 
-        //Matrix4 model = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(time));
-
-        GL.Enable(EnableCap.DepthTest);
-
-        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+          GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
         //GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
 
