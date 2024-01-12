@@ -1,11 +1,14 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Compute.OpenCL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 
 
-  //progress, on the vectors page, changed gsls code, not sure where to put the transformations code at start of "in practice)
+//progress, on the vectors page, changed gsls code, not sure where to put the transformations code at start of "in practice)
 using (Game game = new Game(800, 600, "hello"))
 {
 
@@ -16,6 +19,12 @@ using (Game game = new Game(800, 600, "hello"))
     public class Game : GameWindow
     {
 
+    float width;
+
+    float height;
+
+        int time;
+
         int vertexArrayObject;
 
         int vertexBufferObject;
@@ -24,15 +33,52 @@ using (Game game = new Game(800, 600, "hello"))
 
         int handle;  //shader thingy, can put in a shader class for organisation later if i want
 
-       // int vertexBufferArray;
+    // int vertexBufferArray;
 
-        float[] vertices = {
-         0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left
-        };
-        uint[] indices = {  // note that we start from 0!
+    float[] vertices = {
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+};
+    uint[] indices = {  // note that we start from 0!
 
          0, 1, 3,    // first triangle
 
@@ -40,60 +86,76 @@ using (Game game = new Game(800, 600, "hello"))
 
         // 2, 5, 6    // misc triangle
         };
+    string colour = @"
+     #version 330 core
+     out vec4 FragColor;
 
+     in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
+
+     void main()
+     {
+         FragColor = vertexColor;
+     } ";
+    string position = @"
+     #version 330 core
+
+     layout(location = 0) in vec3 aPosition;
+
+     layout(location = 1) in vec2 aTexCoord;
+
+     out vec2 texCoord;
+ 
+     // Add a uniform for the transformation matrix.
+     uniform mat4 transform;
+
+     void main(void)
+     {
+      texCoord = aTexCoord;
+
+      // Then all you have to do is multiply the vertices by the transformation matrix, and you'll see your transformation in the scene!
+      gl_Position = vec4(aPosition, 1.0) * transform;
+     }";
         #region position_gsls(str-property)
-        //tutorial: 
-        string position = @"
-         #version 330 core
-         layout (location = 0) in vec3 aPos;
-         layout (location = 1) in vec2 aTexCoord;
+    //tutorial: 
+    /*
+    
+     //my kind frend from discord:
+     string position = @"     
+     #version 330
 
-         out vec2 TexCoord;
-  
-         uniform mat4 transform;
+     in vec2 position;
 
-         void main()
-        {
-           gl_Position = vec4(aPos, 1.0f) * transform;
-           TexCoord = vec2(aTexCoord.x, aTexCoord.y);
-        }";
-        /* //my kind frend from discord:
-         string _position = @"     
-         #version 330
-        
-         in vec2 position;
+     void main(void)
+     {
+         gl_Position = vec4(position, 0, 1);
+     }";
 
-         void main(void)
-         {
-             gl_Position = vec4(position, 0, 1);
-         }";
-        */
-        #endregion
-        #region fragment_gsls(str-property)
-        //tutorial:
-        string colour = @"
-         #version 330 core
-         out vec4 FragColor;
-  
-         in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
+    #endregion
+    #region fragment_gsls(str-property)
+    //tutorial:
+    string colour = @"
+     #version 330 core
+     out vec4 FragColor;
 
-         void main()
-         {
-             FragColor = vertexColor;
-         } ";
-        /*  //my kind frend from discord:
-        string _colour = @"
-        #version 330
-        out vec4 color;
+     in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
 
-        void main(void)
-        {
-            color = vec4(0.5, 0.0, 0.5, 1.0);
-           
-        }
-        ";
-        */
-        #endregion
+     void main()
+     {
+         FragColor = vertexColor;
+     } ";
+      //my kind frend from discord:
+    string _colour = @"
+    #version 330
+    out vec4 color;
+
+    void main(void)
+    {
+        color = vec4(0.5, 0.0, 0.5, 1.0);
+
+    }
+    ";
+    */
+    #endregion
 
         public Game(int width, int height, string title)
             : base(GameWindowSettings.Default, new NativeWindowSettings()
@@ -124,61 +186,73 @@ using (Game game = new Game(800, 600, "hello"))
             GL.ClearColor(0.8f, 0.3f, 0.1f, 1.0f);  //chooses colour background
 
             vertexArrayObject = GL.GenVertexArray(); //VAO's  
-            vertexBufferObject = GL.GenBuffer();      
-            elementBufferObject = GL.GenBuffer();
-
             GL.BindVertexArray(vertexArrayObject);       //VAO's
 
+            elementBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
-
             GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
 
+            vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
             
-
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);   /*very important VAO
-                                                                                                        * IM OVER HERE, LEARN AND EXPLAIN OVER HERE WHAT THE PARAMETERS MEAN, need understand VAOsS
-                                                                                                        */
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);   //very important VAO
+                                                                                                        
             GL.EnableVertexAttribArray(0);
             
-            GL.UseProgram(handle);
-
             vertexBufferObject = GL.GenBuffer();
             GL.EnableVertexAttribArray(vertexArrayObject);
 
-
-            //GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            //GL.DeleteBuffer(VertexBufferObject);         // these 2 lines may need to be removed or put somewhere else
-
+        
             handle = CreateProgram(position, colour);
+            GL.UseProgram(handle);
 
-
-            //Code goes here
-        }
+        //Code goes here
+    }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            base.OnRenderFrame(e);
+         base.OnRenderFrame(e);
 
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             GL.UseProgram(handle);
 
-            GL.BindVertexArray(vertexArrayObject);
+        Vector4 vec = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+        Matrix4 trans = Matrix4.CreateTranslation(1f, 1f, 0.0f);
+        vec *= trans;
+        Console.WriteLine("{0}, {1}, {2}", vec.X, vec.Y, vec.Z);
 
-        //Vector4 vec = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-        //Matrix4 trans = Matrix4.CreateTranslation(1f, 1f, 0.0f);
-        //vec *= trans;
-        //Console.WriteLine("{0}, {1}, {2}", vec.X, vec.Y, vec.Z);    // funny
-
-        //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);   //dont put this back in, it is an alternative tho
         Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90.0f));
         Matrix4 scale = Matrix4.CreateScale(0.5f, 0.5f, 0.5f);
-        Matrix4 trans = rotation * scale;
-        GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
+        trans = rotation * scale;
+
+        GL.UseProgram(handle);
+
+        int location = GL.GetUniformLocation(handle, "transform");
+
+        GL.UniformMatrix4(location, true, ref trans);
+
+        GL.BindVertexArray(vertexArrayObject);
+        #region
+        //Matrix4.CreateOrthographicOffCenter(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+        //Matrix4 model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-55.0f));
+        //Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+        //GL.Viewport();
+        
+        #endregion
+        time += 1;
+
+        //Matrix4 model = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(time));
+
+        GL.Enable(EnableCap.DepthTest);
+
+        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+
+        //GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
 
             SwapBuffers();
         }
@@ -192,7 +266,11 @@ using (Game game = new Game(800, 600, "hello"))
             {
                 Console.WriteLine("balls");
             }
-        }
+           if (input.IsKeyDown(Keys.Escape))
+           {
+                 Close();
+           }
+    }
 
 
         int CreateShader(ShaderType type, string source)
@@ -220,7 +298,12 @@ using (Game game = new Game(800, 600, "hello"))
             {
                 Console.WriteLine(GL.GetProgramInfoLog(program));
             }
-            return program;
+        //GL.DetachShader(handle, VertexShader);
+        //GL.DetachShader(handle, FragmentShader);
+        //GL.DeleteShader(fragmentShade r);
+        //GL.DeleteShader(vertexShader);
+
+        return program;
         }
 
         protected override void OnResize(ResizeEventArgs e)
