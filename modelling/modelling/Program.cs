@@ -6,9 +6,10 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Reflection.Metadata;
 using System.Xml.Linq;
+using System;
 
 
-//progress, on the vectors page, changed gsls code, not sure where to put the transformations code at start of "in practice)
+//TEXTURES AND THE POINTERS ARE SO FUCKED
 using (Game game = new Game(800, 600, "hello"))
 {
 
@@ -84,17 +85,24 @@ using (Game game = new Game(800, 600, "hello"))
 
          1, 2, 3,    // second triangle
 
-        // 2, 5, 6    // misc triangle
+         2, 5, 6    // misc triangle
         };
+    float[] texCoords = {
+    0.0f, 0.0f,  // lower-left corner  
+    1.0f, 0.0f,  // lower-right corner
+    0.5f, 1.0f   // top-center corner
+};
     string colour = @"
      #version 330 core
-     out vec4 FragColor;
+     out vec4 outputColor;
 
      in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
+     in vec2 texCoord
+     uniform sampler2D texture0;
 
      void main()
      {
-         FragColor = vertexColor;
+         outputColor = texture(texture0, texCoord);
      } ";
     string position = @"
      #version 330 core
@@ -113,7 +121,7 @@ using (Game game = new Game(800, 600, "hello"))
      uniform mat4 projection;
      void main(void)
      {
-      gl_Position =  vec4(aPos, 1.0) * model * view * projection;
+      //gl_Position =  vec4(aPos, 1.0) * model * view * projection;
       texCoord = aTexCoord;
 
       // Then all you have to do is multiply the vertices by the transformation matrix, and you'll see your transformation in the scene!
@@ -189,7 +197,14 @@ using (Game game = new Game(800, 600, "hello"))
                 
             GL.ClearColor(0.8f, 0.3f, 0.1f, 1.0f);  //chooses colour background
 
-            vertexArrayObject = GL.GenVertexArray(); //VAO's  
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+        float[] borderColor = { 1.0f, 1.0f, 0.0f, 1.0f };
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+          
+        vertexArrayObject = GL.GenVertexArray(); //VAO's  
             GL.BindVertexArray(vertexArrayObject);       //VAO's
 
             elementBufferObject = GL.GenBuffer();
@@ -200,12 +215,16 @@ using (Game game = new Game(800, 600, "hello"))
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
-            
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);   //very important VAO
-                                                                                                        
+        int vertexLocation = GL.GetAttribLocation(handle, "aPosition");
+
+            GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);   //very important VAO
+
+        int texCoordLocation = GL.GetAttribLocation(handle, "aTexCoord");
+            GL.EnableVertexAttribArray(texCoordLocation);
+            GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
             GL.EnableVertexAttribArray(0);
             
-            vertexBufferObject = GL.GenBuffer();
+        vertexBufferObject = GL.GenBuffer();
             GL.EnableVertexAttribArray(vertexArrayObject);
 
         
@@ -228,8 +247,8 @@ using (Game game = new Game(800, 600, "hello"))
         vec *= trans;
         Console.WriteLine("{0}, {1}, {2}", vec.X, vec.Y, vec.Z);
 
-        Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90.0f));
-        Matrix4 scale = Matrix4.CreateScale(0.5f, 0.5f, 0.5f);
+        Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(1f));
+        Matrix4 scale = Matrix4.CreateScale(1f, 1f, 1f);
         trans = rotation * scale;
 
             GL.UseProgram(handle);
@@ -244,32 +263,31 @@ using (Game game = new Game(800, 600, "hello"))
         #region
         
         Matrix4 model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-55.0f));
-        model = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(time));
+        //model = Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(time));
 
         Matrix4 view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
 
         Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), width / height, 0.1f, 100.0f);
         
 
-          GL.UseProgram(handle);
+          
 
         int locationM = GL.GetUniformLocation(handle, "model");     //make location variable names better
 
           GL.UniformMatrix4(locationM, true, ref model);
-          GL.UseProgram(handle);
+          
 
         int locationV = GL.GetUniformLocation(handle, "view");
 
             GL.UniformMatrix4(locationV, true, ref view);
-            GL.UseProgram(handle);
-
+           
         int locationP = GL.GetUniformLocation(handle, "projection");
 
             GL.UniformMatrix4(locationP, true, ref projection);
         #endregion
 
             GL.BindVertexArray(vertexArrayObject);
-        time += 1;
+       // time += 1;
 
           GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
