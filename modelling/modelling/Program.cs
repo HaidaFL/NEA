@@ -97,7 +97,7 @@ using (Game game = new Game(800, 600, "hello"))
      out vec4 outputColor;
 
      in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
-     in vec2 texCoord
+     in vec2 texCoord;
      uniform sampler2D texture0;
 
      void main()
@@ -248,6 +248,7 @@ using (Game game = new Game(800, 600, "hello"))
         Console.WriteLine("{0}, {1}, {2}", vec.X, vec.Y, vec.Z);
 
         Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(1f));
+        
         Matrix4 scale = Matrix4.CreateScale(1f, 1f, 1f);
         trans = rotation * scale;
 
@@ -268,9 +269,7 @@ using (Game game = new Game(800, 600, "hello"))
         Matrix4 view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
 
         Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), width / height, 0.1f, 100.0f);
-        
 
-          
 
         int locationM = GL.GetUniformLocation(handle, "model");     //make location variable names better
 
@@ -284,16 +283,18 @@ using (Game game = new Game(800, 600, "hello"))
         int locationP = GL.GetUniformLocation(handle, "projection");
 
             GL.UniformMatrix4(locationP, true, ref projection);
+
         #endregion
 
             GL.BindVertexArray(vertexArrayObject);
-       // time += 1;
-
-          GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+        // time += 1;
+       
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+        Console.WriteLine("balls");
 
         //GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
 
-            SwapBuffers();
+        SwapBuffers();
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
