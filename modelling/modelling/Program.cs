@@ -26,13 +26,16 @@ using (Game game = new Game(800, 600, "hello"))
 
         int time;
 
-        int vertexArrayObject;
+        int vertexArrayObject_S;//standard vao
+
+        int vertexArrayObject_T;//texture vao
 
         int vertexBufferObject;
 
         int elementBufferObject;
 
         int handle;  //shader thingy, can put in a shader class for organisation later if i want
+        int texHandle;
 
     // int vertexBufferArray;
 
@@ -94,40 +97,62 @@ using (Game game = new Game(800, 600, "hello"))
 };
     string colour = @"
      #version 330 core
+     out vec4 FragColor;  
+     in vec3 ourColor;
+
+     // in vec2 texCoord;
+     // uniform sampler2D texture0;
+
+     void main()
+     {
+         FragColor = vec4(ourColor, 1.0);
+     } ";
+    string texCoord = @"   //fragment shader
+    #version 330
+
      out vec4 outputColor;
 
-     in vec4 vertexColor; // the input variable from the vertex shader (same name and same type)  
      in vec2 texCoord;
+
      uniform sampler2D texture0;
 
      void main()
      {
-         outputColor = texture(texture0, texCoord);
-     } ";
+       outputColor = texture(texture0, texCoord);
+     }";
     string position = @"
      #version 330 core
-     layout (location = 0) in vec3 aPos;
+     layout (location = 0) in vec2 aPos;   // the position variable has attribute position 0
+     layout (location = 1) in vec3 aColor; // the color variable has attribute position 1
+  
+     out vec3 ourColor; // output a color to the fragment shader
+
+     void main()
+     {
+        gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+        ourColor = aColor; // set ourColor to the input color we got from the vertex data      
+     }";
+    string texturePos = @"
+     #version 330 core
 
      layout(location = 0) in vec3 aPosition;
 
      layout(location = 1) in vec2 aTexCoord;
 
      out vec2 texCoord;
- 
-     // Add a uniform for the transformation matrix.
      uniform mat4 transform;
      uniform mat4 model;
      uniform mat4 view;
      uniform mat4 projection;
+
      void main(void)
      {
-      //gl_Position =  vec4(aPos, 1.0) * model * view * projection;
-      texCoord = aTexCoord;
+        texCoord = aTexCoord;
 
-      // Then all you have to do is multiply the vertices by the transformation matrix, and you'll see your transformation in the scene!
-      gl_Position = vec4(aPosition, 1.0) * transform;
-     }";
-        #region position_gsls(str-property)
+        gl_Position = vec4(aPosition, 1.0);
+    }";
+
+    #region position_gsls(str-property)
     //tutorial: 
     /*
     
@@ -169,7 +194,7 @@ using (Game game = new Game(800, 600, "hello"))
     */
     #endregion
 
-        public Game(int width, int height, string title)
+    public Game(int width, int height, string title)
             : base(GameWindowSettings.Default, new NativeWindowSettings()
             { ClientSize = (width, height), Title = title })
         {
@@ -184,7 +209,7 @@ using (Game game = new Game(800, 600, "hello"))
 
             // delete all the resources.
             GL.DeleteBuffer(vertexBufferObject);
-            GL.DeleteVertexArray(vertexArrayObject);
+            GL.DeleteVertexArray(vertexArrayObject_S);
 
             GL.DeleteProgram(handle);
 
@@ -196,18 +221,57 @@ using (Game game = new Game(800, 600, "hello"))
             base.OnLoad();
                 
             GL.ClearColor(0.8f, 0.3f, 0.1f, 1.0f);  //chooses colour background
-
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+        #region texVAO
+        /*
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
         float[] borderColor = { 1.0f, 1.0f, 0.0f, 1.0f };
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
           
-        vertexArrayObject = GL.GenVertexArray(); //VAO's  
-            GL.BindVertexArray(vertexArrayObject);       //VAO's
+        vertexArrayObject_T = GL.GenVertexArray(); //VAO's  
+            GL.BindVertexArray(vertexArrayObject_T);       //VAO's
 
-            elementBufferObject = GL.GenBuffer();
+
+        int vertexLocation = GL.GetAttribLocation(texHandle, "aPosition");
+
+        GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);   //very important VAO
+
+        int texCoordLocation = GL.GetAttribLocation(texHandle, "aTexCoord");
+        GL.EnableVertexAttribArray(texCoordLocation);
+        GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+        GL.EnableVertexAttribArray(0);
+
+        GL.EnableVertexAttribArray(vertexArrayObject_T);
+
+        texHandle = CreateProgram(texturePos, texCoord);
+        */
+        #endregion
+
+        #region standardVAO
+       
+        vertexArrayObject_S = GL.GenVertexArray(); //VAO's  
+        GL.BindVertexArray(vertexArrayObject_S);       //VAO's
+
+        int vertexLocation_S = GL.GetAttribLocation(handle, "aPos");
+        
+
+        GL.VertexAttribPointer(vertexLocation_S, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);   //very important VAO             HARD CODED INSTEAD OF USING THE PREVIOUS VARIABLE IN THE FIRST PARAMETER
+        GL.EnableVertexAttribArray(vertexLocation_S);
+
+        int colorLocation_S = GL.GetAttribLocation(handle, "aColor");  //this is in vertex standard shader
+        
+
+        GL.VertexAttribPointer(colorLocation_S, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 2 * sizeof(float));   //very important VAO             HARD CODED INSTEAD OF USING THE PREVIOUS VARIABLE IN THE FIRST PARAMETER
+        GL.EnableVertexAttribArray(colorLocation_S);
+
+        
+
+        handle = CreateProgram(position, colour);
+        #endregion
+
+        elementBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBufferObject);
             GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
 
@@ -215,24 +279,14 @@ using (Game game = new Game(800, 600, "hello"))
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
-        int vertexLocation = GL.GetAttribLocation(handle, "aPosition");
 
-            GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);   //very important VAO
-
-        int texCoordLocation = GL.GetAttribLocation(handle, "aTexCoord");
-            GL.EnableVertexAttribArray(texCoordLocation);
-            GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
-            GL.EnableVertexAttribArray(0);
-            
-        vertexBufferObject = GL.GenBuffer();
-            GL.EnableVertexAttribArray(vertexArrayObject);
 
         
-            handle = CreateProgram(position, colour);
-            GL.UseProgram(handle);
+        
+        GL.UseProgram(handle);
 
         //Code goes here
-    }
+        }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -286,11 +340,11 @@ using (Game game = new Game(800, 600, "hello"))
 
         #endregion
 
-            GL.BindVertexArray(vertexArrayObject);
+            GL.BindVertexArray(vertexArrayObject_S);
         // time += 1;
-       
+        
         GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
-        Console.WriteLine("balls");
+        //Console.WriteLine("balls");
 
         //GL.DrawElements(PrimitiveType.TriangleStrip, indices.Length, DrawElementsType.UnsignedInt, 0); //draw the several things
 
