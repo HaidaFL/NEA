@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\beams\beams\bin\Debug\net6.0\beams.exe
+C:\Users\user\source\repos\beams\beams\bin\Debug\net6.0\beams.deps.json
+C:\Users\user\source\repos\beams\beams\bin\Debug\net6.0\beams.runtimeconfig.json
+C:\Users\user\source\repos\beams\beams\bin\Debug\net6.0\beams.dll
+C:\Users\user\source\repos\beams\beams\bin\Debug\net6.0\beams.pdb
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.AssemblyInfo.cs
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.dll
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\refint\beams.dll
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.pdb
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\beams.genruntimeconfig.cache
+C:\Users\user\source\repos\beams\beams\obj\Debug\net6.0\ref\beams.dll

@@ -1,0 +1,11 @@
+C:\Users\user\source\repos\beam form\beam form\bin\Debug\beam form.exe.config
+C:\Users\user\source\repos\beam form\beam form\bin\Debug\beam form.exe
+C:\Users\user\source\repos\beam form\beam form\bin\Debug\beam form.pdb
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.csproj.SuggestedBindingRedirects.cache
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam_form.Properties.Resources.resources
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.csproj.GenerateResource.cache
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.exe
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.pdb
+C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam_form.frmBeamCalculation.resources
