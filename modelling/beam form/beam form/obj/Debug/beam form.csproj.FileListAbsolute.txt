@@ -9,3 +9,23 @@ C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.csproj.CoreCo
 C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.exe
 C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam form.pdb
 C:\Users\user\source\repos\beam form\beam form\obj\Debug\beam_form.frmBeamCalculation.resources
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\beam form.exe.config
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\beam form.exe
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\beam form.pdb
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.csproj.SuggestedBindingRedirects.cache
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam_form.frmBeamCalculation.resources
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam_form.Properties.Resources.resources
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.csproj.GenerateResource.cache
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.exe
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.pdb
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\EntityFramework.dll
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\System.Data.SQLite.dll
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\EntityFramework.xml
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\bin\Debug\System.Data.SQLite.xml
+C:\Users\user\OneDrive - Bradford Grammar School\Documents\GitHub\NEA\modelling\beam form\beam form\obj\Debug\beam form.csproj.CopyComplete

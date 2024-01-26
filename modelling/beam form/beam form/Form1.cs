@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,39 @@ namespace beam_form
     {
         public frmBeamCalculation()
         {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = materialstrproperties.db; Version = 3; New = True; Compress = True;");
+            conn.Open();
+            SQLiteCommand cmd = conn.CreateCommand();
+            List<string> timbers = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C14'";
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                timbers.Add(reader.GetString(0));
+                timbers.Add(reader.GetInt32(1).ToString());
+                timbers.Add(reader.GetDouble(2).ToString());
+                timbers.Add(reader.GetDouble(3).ToString());
+                timbers.Add(reader.GetDouble(4).ToString());
+                timbers.Add(reader.GetDouble(5).ToString());
+                timbers.Add(reader.GetDouble(6).ToString());
+                timbers.Add(reader.GetDouble(7).ToString());
+            }
+
             InitializeComponent();
+            txtdepth.Text = 0.ToString();
+            txtbreadth.Text = 0.ToString();
+            txtDisplacement.Text = 0.ToString();
+            txtForceWidth.Text = 0.ToString();
+            txtInertia.Text = 0.ToString();
+            txtlength.Text = 0.ToString();
+            txtload.Text = 0.ToString();
+            txtMaxDeflection.Text = 0.ToString();
+            txtModulusElasticity.Text = 0.ToString();
+
+        }
+        private void initialiseDatabase()
+        {
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -33,10 +66,20 @@ namespace beam_form
         private void radUniformAreaForce_CheckedChanged(object sender, EventArgs e)
         {
             txtForceWidth.Enabled = true;
+            txtbreadth.Enabled = false;
+            txtdepth.Enabled = false;
         }
         private void radSinglePointForce_CheckedChanged(object sender, EventArgs e)
         {
             txtForceWidth.Enabled = false;
+            txtbreadth.Enabled = false;
+            txtdepth.Enabled = false;
+        }
+
+        private void radTimberBeamMD_CheckedChanged(object sender, EventArgs e)
+        {
+            txtbreadth.Enabled = true;
+            txtdepth.Enabled = true;
         }
 
         private void frmBeamCalculation_Load(object sender, EventArgs e)
@@ -46,28 +89,47 @@ namespace beam_form
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            calculatebutton();
 
-            
+        }
 
+        private void calculatebutton()
+        {
             if (txtlength.Text == "" || txtModulusElasticity.Text == "" || txtDisplacement.Text == "" || txtInertia.Text == "" || txtload.Text == "")
             {
                 MessageBox.Show("fill all required values", "error : ");
-                return ;
+                return;
             }
-            if(radUniformAreaForce.Checked == true)
+            if (radUniformAreaForce.Checked == true)
             {
                 if (txtForceWidth.Text == "")
                 {
-                    MessageBox.Show("as well as fill in force width", "error : ");
-                    return ;
+                    MessageBox.Show("fill in force width", "error : ");
+                    return;
                 }
             }
-            
-            
+            if (radTimberBeamMD.Checked == true)
+            {
+                if (txtdepth.Text == "")
+                {
+                    MessageBox.Show("fill in depth", "error : ");
+                    return;
+                }
+                if (txtbreadth.Text == "")
+                {
+                    MessageBox.Show("fill in breadth", "error : ");
+                    return;
+                }
+            }
+
+
             Beam o_beam = new Beam();
+
             ArrayList al_vehicles = new ArrayList();
 
             o_beam.length = Convert.ToDecimal(txtlength.Text);
+            o_beam.breadth = Convert.ToDecimal(txtbreadth.Text);
+            o_beam.depth = Convert.ToDecimal(txtdepth.Text);
             o_beam.load = Convert.ToDecimal(txtload.Text);
             o_beam.modulusElasticity = Convert.ToDecimal(txtModulusElasticity.Text);
             o_beam.momentOfInertia = Convert.ToDecimal(txtInertia.Text);
@@ -76,7 +138,7 @@ namespace beam_form
             if (o_beam.beamDisplacement > o_beam.length)
             {
                 MessageBox.Show("beam displacement is larger than length", "error : ");
-                return ;
+                return;
             }
             decimal GraphDisplacement = 0;
             if (radUniformAreaForce.Checked == true)
@@ -88,24 +150,29 @@ namespace beam_form
                 {
                     MessageBox.Show("length is too small", "error : ");
 
-                    return ;
+                    return;
                 }
                 txtMaxDeflection.Text = o_beam.calcUniformAreaDeflection2D(w).ToString();
                 GraphDisplacement = o_beam.beamDisplacement + (w / 2);
 
             }
-            
+
             if (radSinglePointForce.Checked == true)
             {
                 txtMaxDeflection.Text = o_beam.calcMaxBeamDeflection2D().ToString();
                 GraphDisplacement = o_beam.beamDisplacement;
             }
 
+            if (radUniformAreaForce.Checked == true)
+            {
+                txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D().ToString();
+
+            }
 
             // Clear any existing series
-            
+
             chrtDeflectionGraph.Series.Clear();
-            
+
             chrtDeflectionGraph.ChartAreas[0].AxisX.Maximum = Double.NaN;
             chrtDeflectionGraph.ChartAreas[0].AxisX.Minimum = Double.NaN;
             chrtDeflectionGraph.ChartAreas[0].AxisY.Maximum = Double.NaN;
@@ -115,7 +182,7 @@ namespace beam_form
 
             // Set the chart type to a line series with a spline interpolation
             series.ChartType = SeriesChartType.Spline;
-            
+
 
             // Add data points to the series
             series.Points.AddXY(0, 0);
@@ -128,7 +195,6 @@ namespace beam_form
             // Customize the chart appearance as needed
             chrtDeflectionGraph.ChartAreas[0].AxisX.Title = "X-Axis";
             chrtDeflectionGraph.ChartAreas[0].AxisY.Title = "Y-Axis";
-
         }
         #region
         //decimal calcCarDeflection(Beam o_beam)
@@ -152,8 +218,8 @@ namespace beam_form
         #endregion
         class Beam
         {
-            public decimal width { get; set; }
-            public decimal height { get; set; }
+            public decimal breadth { get; set; }
+            public decimal depth { get; set; }
             public decimal length { get; set; }
             public decimal load { get; set; }
             public decimal modulusElasticity { get; set; }
@@ -192,6 +258,21 @@ namespace beam_form
                 return 0;
 
             }
+            public decimal calcMaxTimberDeflection2D()
+            {
+                decimal MaxBeamDeflection = 0;
+
+                decimal timberModulusElasticity = 1; // get from database depending on dimensions
+
+                decimal timberMomentOfInertia = 1; // get from database depending on dimensions
+
+
+                decimal numerator = load * power(length, 3);
+                decimal denominator = 48 * timberModulusElasticity * timberMomentOfInertia; 
+                MaxBeamDeflection = numerator / denominator;
+                return MaxBeamDeflection;
+            }
+
             public decimal calcMaxBeamDeflection2D() //simply supported 
             {
 
@@ -291,6 +372,14 @@ namespace beam_form
         private void label7_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCalculate_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ( e.KeyCode == Keys.Enter)
+            {
+                calculatebutton();
+            }
         }
     }
 

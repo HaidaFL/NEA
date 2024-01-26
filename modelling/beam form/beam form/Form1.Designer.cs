@@ -28,27 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtlength = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbllength = new System.Windows.Forms.Label();
+            this.lblinertia = new System.Windows.Forms.Label();
             this.txtModulusElasticity = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblModulusElasticity = new System.Windows.Forms.Label();
             this.txtInertia = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblload = new System.Windows.Forms.Label();
             this.txtload = new System.Windows.Forms.TextBox();
             this.txtDisplacement = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbldisplacement = new System.Windows.Forms.Label();
             this.txtForceWidth = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblUFwidth = new System.Windows.Forms.Label();
             this.radSinglePointForce = new System.Windows.Forms.RadioButton();
             this.radUniformAreaForce = new System.Windows.Forms.RadioButton();
             this.btnCalculate = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblmaxdeflection = new System.Windows.Forms.Label();
             this.txtMaxDeflection = new System.Windows.Forms.TextBox();
             this.chrtDeflectionGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lbldepth = new System.Windows.Forms.Label();
+            this.txtdepth = new System.Windows.Forms.TextBox();
+            this.lblbreadth = new System.Windows.Forms.Label();
+            this.txtbreadth = new System.Windows.Forms.TextBox();
+            this.radTimberBeamMD = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.chrtDeflectionGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +61,7 @@
             // 
             this.txtlength.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtlength.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.txtlength.Location = new System.Drawing.Point(245, 447);
+            this.txtlength.Location = new System.Drawing.Point(122, 385);
             this.txtlength.Name = "txtlength";
             this.txtlength.Size = new System.Drawing.Size(51, 26);
             this.txtlength.TabIndex = 0;
@@ -64,24 +69,24 @@
             this.txtlength.TextChanged += new System.EventHandler(this.txtlength_TextChanged);
             this.txtlength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlength_KeyPress);
             // 
-            // label1
+            // lbllength
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(186, 450);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "length";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lbllength.AutoSize = true;
+            this.lbllength.Location = new System.Drawing.Point(39, 388);
+            this.lbllength.Name = "lbllength";
+            this.lbllength.Size = new System.Drawing.Size(80, 20);
+            this.lbllength.TabIndex = 1;
+            this.lbllength.Text = "length (m)";
+            this.lbllength.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // lblinertia
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(171, 675);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 20);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Inertia";
+            this.lblinertia.AutoSize = true;
+            this.lblinertia.Location = new System.Drawing.Point(141, 675);
+            this.lblinertia.Name = "lblinertia";
+            this.lblinertia.Size = new System.Drawing.Size(97, 20);
+            this.lblinertia.TabIndex = 3;
+            this.lblinertia.Text = "Inertia (m^4)";
             // 
             // txtModulusElasticity
             // 
@@ -94,14 +99,14 @@
             this.txtModulusElasticity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtModulusElasticity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtModulusElasticity_KeyPress);
             // 
-            // label3
+            // lblModulusElasticity
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(108, 598);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "modulusElasticity";
+            this.lblModulusElasticity.AutoSize = true;
+            this.lblModulusElasticity.Location = new System.Drawing.Point(39, 595);
+            this.lblModulusElasticity.Name = "lblModulusElasticity";
+            this.lblModulusElasticity.Size = new System.Drawing.Size(199, 20);
+            this.lblModulusElasticity.TabIndex = 5;
+            this.lblModulusElasticity.Text = "modulusElasticity (kM/m^2)";
             // 
             // txtInertia
             // 
@@ -114,15 +119,15 @@
             this.txtInertia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtInertia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInertia_KeyPress);
             // 
-            // label4
+            // lblload
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(186, 523);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "load";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.lblload.AutoSize = true;
+            this.lblload.Location = new System.Drawing.Point(156, 526);
+            this.lblload.Name = "lblload";
+            this.lblload.Size = new System.Drawing.Size(72, 20);
+            this.lblload.TabIndex = 7;
+            this.lblload.Text = "load (kN)";
+            this.lblload.Click += new System.EventHandler(this.label4_Click);
             // 
             // txtload
             // 
@@ -146,14 +151,14 @@
             this.txtDisplacement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDisplacement.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisplacement_KeyPress);
             // 
-            // label5
+            // lbldisplacement
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(119, 751);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 20);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Displacement";
+            this.lbldisplacement.AutoSize = true;
+            this.lbldisplacement.Location = new System.Drawing.Point(105, 751);
+            this.lbldisplacement.Name = "lbldisplacement";
+            this.lbldisplacement.Size = new System.Drawing.Size(133, 20);
+            this.lbldisplacement.TabIndex = 8;
+            this.lbldisplacement.Text = "Displacement (m)";
             // 
             // txtForceWidth
             // 
@@ -166,19 +171,19 @@
             this.txtForceWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtForceWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtForceWidth_KeyPress);
             // 
-            // label6
+            // lblUFwidth
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(74, 827);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 20);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "UniformForce Width";
+            this.lblUFwidth.AutoSize = true;
+            this.lblUFwidth.Location = new System.Drawing.Point(60, 827);
+            this.lblUFwidth.Name = "lblUFwidth";
+            this.lblUFwidth.Size = new System.Drawing.Size(178, 20);
+            this.lblUFwidth.TabIndex = 10;
+            this.lblUFwidth.Text = "UniformForce Width (m)";
             // 
             // radSinglePointForce
             // 
             this.radSinglePointForce.AutoSize = true;
-            this.radSinglePointForce.Location = new System.Drawing.Point(122, 193);
+            this.radSinglePointForce.Location = new System.Drawing.Point(172, 240);
             this.radSinglePointForce.Name = "radSinglePointForce";
             this.radSinglePointForce.Size = new System.Drawing.Size(189, 24);
             this.radSinglePointForce.TabIndex = 13;
@@ -190,7 +195,7 @@
             // radUniformAreaForce
             // 
             this.radUniformAreaForce.AutoSize = true;
-            this.radUniformAreaForce.Location = new System.Drawing.Point(122, 75);
+            this.radUniformAreaForce.Location = new System.Drawing.Point(172, 186);
             this.radUniformAreaForce.Name = "radUniformAreaForce";
             this.radUniformAreaForce.Size = new System.Drawing.Size(199, 24);
             this.radUniformAreaForce.TabIndex = 14;
@@ -201,27 +206,28 @@
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(378, 788);
+            this.btnCalculate.Location = new System.Drawing.Point(77, 888);
             this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(436, 184);
+            this.btnCalculate.Size = new System.Drawing.Size(244, 109);
             this.btnCalculate.TabIndex = 15;
             this.btnCalculate.Text = "Calculate";
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
+            this.btnCalculate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCalculate_KeyDown);
             // 
-            // label7
+            // lblmaxdeflection
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(39, 1029);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 20);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "MaxDeflection ";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.lblmaxdeflection.AutoSize = true;
+            this.lblmaxdeflection.Location = new System.Drawing.Point(39, 1029);
+            this.lblmaxdeflection.Name = "lblmaxdeflection";
+            this.lblmaxdeflection.Size = new System.Drawing.Size(150, 20);
+            this.lblmaxdeflection.TabIndex = 16;
+            this.lblmaxdeflection.Text = "MaxDeflection (mm)";
+            this.lblmaxdeflection.Click += new System.EventHandler(this.label7_Click);
             // 
             // txtMaxDeflection
             // 
-            this.txtMaxDeflection.Location = new System.Drawing.Point(122, 1071);
+            this.txtMaxDeflection.Location = new System.Drawing.Point(97, 1078);
             this.txtMaxDeflection.Name = "txtMaxDeflection";
             this.txtMaxDeflection.ReadOnly = true;
             this.txtMaxDeflection.Size = new System.Drawing.Size(1612, 26);
@@ -231,19 +237,69 @@
             // chrtDeflectionGraph
             // 
             this.chrtDeflectionGraph.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chrtDeflectionGraph.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chrtDeflectionGraph.Legends.Add(legend1);
-            this.chrtDeflectionGraph.Location = new System.Drawing.Point(393, 193);
+            chartArea2.Name = "ChartArea1";
+            this.chrtDeflectionGraph.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chrtDeflectionGraph.Legends.Add(legend2);
+            this.chrtDeflectionGraph.Location = new System.Drawing.Point(403, 540);
             this.chrtDeflectionGraph.Name = "chrtDeflectionGraph";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chrtDeflectionGraph.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chrtDeflectionGraph.Series.Add(series2);
             this.chrtDeflectionGraph.Size = new System.Drawing.Size(1464, 471);
             this.chrtDeflectionGraph.TabIndex = 18;
             this.chrtDeflectionGraph.Text = "chart1";
+            // 
+            // lbldepth
+            // 
+            this.lbldepth.AutoSize = true;
+            this.lbldepth.Location = new System.Drawing.Point(198, 388);
+            this.lbldepth.Name = "lbldepth";
+            this.lbldepth.Size = new System.Drawing.Size(77, 20);
+            this.lbldepth.TabIndex = 20;
+            this.lbldepth.Text = "depth (m)";
+            // 
+            // txtdepth
+            // 
+            this.txtdepth.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtdepth.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtdepth.Location = new System.Drawing.Point(281, 385);
+            this.txtdepth.Name = "txtdepth";
+            this.txtdepth.Size = new System.Drawing.Size(51, 26);
+            this.txtdepth.TabIndex = 19;
+            this.txtdepth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblbreadth
+            // 
+            this.lblbreadth.AutoSize = true;
+            this.lblbreadth.Location = new System.Drawing.Point(348, 391);
+            this.lblbreadth.Name = "lblbreadth";
+            this.lblbreadth.Size = new System.Drawing.Size(91, 20);
+            this.lblbreadth.TabIndex = 22;
+            this.lblbreadth.Text = "breadth (m)";
+            // 
+            // txtbreadth
+            // 
+            this.txtbreadth.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtbreadth.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtbreadth.Location = new System.Drawing.Point(445, 388);
+            this.txtbreadth.Name = "txtbreadth";
+            this.txtbreadth.Size = new System.Drawing.Size(51, 26);
+            this.txtbreadth.TabIndex = 21;
+            this.txtbreadth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // radTimberBeamMD
+            // 
+            this.radTimberBeamMD.AutoSize = true;
+            this.radTimberBeamMD.Location = new System.Drawing.Point(403, 186);
+            this.radTimberBeamMD.Name = "radTimberBeamMD";
+            this.radTimberBeamMD.Size = new System.Drawing.Size(202, 24);
+            this.radTimberBeamMD.TabIndex = 23;
+            this.radTimberBeamMD.TabStop = true;
+            this.radTimberBeamMD.Text = "TimberBeamCalculation";
+            this.radTimberBeamMD.UseVisualStyleBackColor = true;
+            this.radTimberBeamMD.CheckedChanged += new System.EventHandler(this.radTimberBeamMD_CheckedChanged);
             // 
             // frmBeamCalculation
             // 
@@ -251,23 +307,28 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1869, 1167);
+            this.Controls.Add(this.radTimberBeamMD);
+            this.Controls.Add(this.lblbreadth);
+            this.Controls.Add(this.txtbreadth);
+            this.Controls.Add(this.lbldepth);
+            this.Controls.Add(this.txtdepth);
             this.Controls.Add(this.chrtDeflectionGraph);
             this.Controls.Add(this.txtMaxDeflection);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblmaxdeflection);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.radUniformAreaForce);
             this.Controls.Add(this.radSinglePointForce);
             this.Controls.Add(this.txtForceWidth);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblUFwidth);
             this.Controls.Add(this.txtDisplacement);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbldisplacement);
+            this.Controls.Add(this.lblload);
             this.Controls.Add(this.txtload);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblModulusElasticity);
             this.Controls.Add(this.txtInertia);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblinertia);
             this.Controls.Add(this.txtModulusElasticity);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbllength);
             this.Controls.Add(this.txtlength);
             this.Name = "frmBeamCalculation";
             this.Text = "haiders calculator";
@@ -281,23 +342,28 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtlength;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbllength;
+        private System.Windows.Forms.Label lblinertia;
         private System.Windows.Forms.TextBox txtModulusElasticity;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblModulusElasticity;
         private System.Windows.Forms.TextBox txtInertia;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblload;
         private System.Windows.Forms.TextBox txtload;
         private System.Windows.Forms.TextBox txtDisplacement;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbldisplacement;
         private System.Windows.Forms.TextBox txtForceWidth;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblUFwidth;
         private System.Windows.Forms.RadioButton radSinglePointForce;
         private System.Windows.Forms.RadioButton radUniformAreaForce;
         private System.Windows.Forms.Button btnCalculate;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblmaxdeflection;
         private System.Windows.Forms.TextBox txtMaxDeflection;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrtDeflectionGraph;
+        private System.Windows.Forms.Label lbldepth;
+        private System.Windows.Forms.TextBox txtdepth;
+        private System.Windows.Forms.Label lblbreadth;
+        private System.Windows.Forms.TextBox txtbreadth;
+        private System.Windows.Forms.RadioButton radTimberBeamMD;
     }
 }
 
