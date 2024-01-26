@@ -16,13 +16,23 @@ namespace beam_form
 {
     public partial class frmBeamCalculation : Form
     {
+        List<string> timbersC14 = new List<string>();
+        List<string> timbersC16 = new List<string>();
+        List<string> timbersC18 = new List<string>();
+        List<string> timbersC22 = new List<string>();
+        List<string> timbersTR26 = new List<string>();
+        List<string> timbersC27 = new List<string>();
+        List<string> timbersC30 = new List<string>();
+        List<string> timbersC35 = new List<string>();
+        List<string> timbersC40 = new List<string>();
+
         public frmBeamCalculation()
         {
             SQLiteConnection conn = new SQLiteConnection("Data Source = materialstrproperties.db; Version = 3; New = True; Compress = True;");
             conn.Open();
             SQLiteCommand cmd = conn.CreateCommand();
+            #region timber class strength lists
 
-            List<string> timbersC14 = new List<string>();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C14'";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -36,7 +46,7 @@ namespace beam_form
                 timbersC14.Add(reader.GetDouble(6).ToString());
                 timbersC14.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC16 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C16'";
             while (reader.Read())
             {
@@ -49,7 +59,7 @@ namespace beam_form
                 timbersC16.Add(reader.GetDouble(6).ToString());
                 timbersC16.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC18 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C18'";
             while (reader.Read())
             {
@@ -62,7 +72,7 @@ namespace beam_form
                 timbersC18.Add(reader.GetDouble(6).ToString());
                 timbersC18.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC22 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C22'";
             while (reader.Read())
             {
@@ -75,7 +85,7 @@ namespace beam_form
                 timbersC22.Add(reader.GetDouble(6).ToString());
                 timbersC22.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersTR26 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'TR26'";
             while (reader.Read())
             {
@@ -88,7 +98,7 @@ namespace beam_form
                 timbersTR26.Add(reader.GetDouble(6).ToString());
                 timbersTR26.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC27 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C27'";
             while (reader.Read())
             {
@@ -101,7 +111,7 @@ namespace beam_form
                 timbersC27.Add(reader.GetDouble(6).ToString());
                 timbersC27.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC30 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C30'";
             while (reader.Read())
             {
@@ -114,7 +124,7 @@ namespace beam_form
                 timbersC30.Add(reader.GetDouble(6).ToString());
                 timbersC30.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC35 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C35'";
             while (reader.Read())
             {
@@ -127,7 +137,7 @@ namespace beam_form
                 timbersC35.Add(reader.GetDouble(6).ToString());
                 timbersC35.Add(reader.GetDouble(7).ToString());
             }
-            List<string> timbersC40 = new List<string>();
+
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C40'";
             while (reader.Read())
             {
@@ -140,9 +150,19 @@ namespace beam_form
                 timbersC40.Add(reader.GetDouble(6).ToString());
                 timbersC40.Add(reader.GetDouble(7).ToString());
             }
+            #endregion
+            cmboTimberClass.Items.Add(timbersC14[0]);
+            cmboTimberClass.Items.Add(timbersC16[0]);
+            cmboTimberClass.Items.Add(timbersC18[0]);
+            cmboTimberClass.Items.Add(timbersC22[0]);
+            cmboTimberClass.Items.Add(timbersTR26[0]);
+            cmboTimberClass.Items.Add(timbersC27[0]);
+            cmboTimberClass.Items.Add(timbersC30[0]);
+            cmboTimberClass.Items.Add(timbersC35[0]);
+            cmboTimberClass.Items.Add(timbersC40[0]);
 
             InitializeComponent();
-            
+
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -186,6 +206,8 @@ namespace beam_form
 
         private void calculatebutton()
         {
+            Beam o_beam = new Beam();
+
             if (txtlength.Text == "" || txtModulusElasticity.Text == "" || txtDisplacement.Text == "" || txtInertia.Text == "" || txtload.Text == "")
             {
                 MessageBox.Show("fill all required values", "error : ");
@@ -211,17 +233,16 @@ namespace beam_form
                     MessageBox.Show("fill in breadth", "error : ");
                     return;
                 }
-                o_beam.length = Convert.ToDecimal(txtlength.Text);
                 o_beam.breadth = Convert.ToDecimal(txtbreadth.Text);
+                o_beam.depth = Convert.ToDecimal(txtdepth.Text);
             }
 
 
-            Beam o_beam = new Beam();
+
 
             ArrayList al_vehicles = new ArrayList();
 
-            
-            o_beam.depth = Convert.ToDecimal(txtdepth.Text);
+            o_beam.length = Convert.ToDecimal(txtlength.Text);
             o_beam.load = Convert.ToDecimal(txtload.Text);
             o_beam.modulusElasticity = Convert.ToDecimal(txtModulusElasticity.Text);
             o_beam.momentOfInertia = Convert.ToDecimal(txtInertia.Text);
@@ -287,6 +308,77 @@ namespace beam_form
             // Customize the chart appearance as needed
             chrtDeflectionGraph.ChartAreas[0].AxisX.Title = "X-Axis";
             chrtDeflectionGraph.ChartAreas[0].AxisY.Title = "Y-Axis";
+        }
+        private void txtlength_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #region validate numeric inputs
+        private void txtlength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtload_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtModulusElasticity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtInertia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtDisplacement_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtForceWidth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+
+        private void txtMaxDeflection_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
+        }
+        #endregion
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCalculate_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                calculatebutton();
+            }
+        }
+
+        private void cmboTimberClass_TextChanged(object sender, EventArgs e)
+        {
+            switch (cmboTimberClass.Text)
+            {
+                case ("C14"):
+                    txtModulusElasticity.Text = timberC14[1];
+                    break;
+            }
         }
         #region
         //decimal calcCarDeflection(Beam o_beam)
@@ -360,7 +452,7 @@ namespace beam_form
 
 
                 decimal numerator = load * power(length, 3);
-                decimal denominator = 48 * timberModulusElasticity * timberMomentOfInertia; 
+                decimal denominator = 48 * timberModulusElasticity * timberMomentOfInertia;
                 MaxBeamDeflection = numerator / denominator;
                 return MaxBeamDeflection;
             }
@@ -411,68 +503,8 @@ namespace beam_form
                 return value;
             }
         }
-
-        private void txtlength_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #region validate numeric inputs
-        private void txtlength_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtload_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtModulusElasticity_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtInertia_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtDisplacement_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtForceWidth_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-
-        private void txtMaxDeflection_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) { e.Handled = true; }
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) { e.Handled = true; }
-        }
-        #endregion
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCalculate_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ( e.KeyCode == Keys.Enter)
-            {
-                calculatebutton();
-            }
-        }
     }
+        
+    
 
 }
