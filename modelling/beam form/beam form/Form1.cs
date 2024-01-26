@@ -21,38 +21,129 @@ namespace beam_form
             SQLiteConnection conn = new SQLiteConnection("Data Source = materialstrproperties.db; Version = 3; New = True; Compress = True;");
             conn.Open();
             SQLiteCommand cmd = conn.CreateCommand();
-            List<string> timbers = new List<string>();
+
+            List<string> timbersC14 = new List<string>();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C14'";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                timbers.Add(reader.GetString(0));
-                timbers.Add(reader.GetInt32(1).ToString());
-                timbers.Add(reader.GetDouble(2).ToString());
-                timbers.Add(reader.GetDouble(3).ToString());
-                timbers.Add(reader.GetDouble(4).ToString());
-                timbers.Add(reader.GetDouble(5).ToString());
-                timbers.Add(reader.GetDouble(6).ToString());
-                timbers.Add(reader.GetDouble(7).ToString());
+                timbersC14.Add(reader.GetString(0));
+                timbersC14.Add(reader.GetInt32(1).ToString());
+                timbersC14.Add(reader.GetDouble(2).ToString());
+                timbersC14.Add(reader.GetDouble(3).ToString());
+                timbersC14.Add(reader.GetDouble(4).ToString());
+                timbersC14.Add(reader.GetDouble(5).ToString());
+                timbersC14.Add(reader.GetDouble(6).ToString());
+                timbersC14.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC16 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C16'";
+            while (reader.Read())
+            {
+                timbersC16.Add(reader.GetString(0));
+                timbersC16.Add(reader.GetInt32(1).ToString());
+                timbersC16.Add(reader.GetDouble(2).ToString());
+                timbersC16.Add(reader.GetDouble(3).ToString());
+                timbersC16.Add(reader.GetDouble(4).ToString());
+                timbersC16.Add(reader.GetDouble(5).ToString());
+                timbersC16.Add(reader.GetDouble(6).ToString());
+                timbersC16.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC18 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C18'";
+            while (reader.Read())
+            {
+                timbersC18.Add(reader.GetString(0));
+                timbersC18.Add(reader.GetInt32(1).ToString());
+                timbersC18.Add(reader.GetDouble(2).ToString());
+                timbersC18.Add(reader.GetDouble(3).ToString());
+                timbersC18.Add(reader.GetDouble(4).ToString());
+                timbersC18.Add(reader.GetDouble(5).ToString());
+                timbersC18.Add(reader.GetDouble(6).ToString());
+                timbersC18.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC22 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C22'";
+            while (reader.Read())
+            {
+                timbersC22.Add(reader.GetString(0));
+                timbersC22.Add(reader.GetInt32(1).ToString());
+                timbersC22.Add(reader.GetDouble(2).ToString());
+                timbersC22.Add(reader.GetDouble(3).ToString());
+                timbersC22.Add(reader.GetDouble(4).ToString());
+                timbersC22.Add(reader.GetDouble(5).ToString());
+                timbersC22.Add(reader.GetDouble(6).ToString());
+                timbersC22.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersTR26 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'TR26'";
+            while (reader.Read())
+            {
+                timbersTR26.Add(reader.GetString(0));
+                timbersTR26.Add(reader.GetInt32(1).ToString());
+                timbersTR26.Add(reader.GetDouble(2).ToString());
+                timbersTR26.Add(reader.GetDouble(3).ToString());
+                timbersTR26.Add(reader.GetDouble(4).ToString());
+                timbersTR26.Add(reader.GetDouble(5).ToString());
+                timbersTR26.Add(reader.GetDouble(6).ToString());
+                timbersTR26.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC27 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C27'";
+            while (reader.Read())
+            {
+                timbersC27.Add(reader.GetString(0));
+                timbersC27.Add(reader.GetInt32(1).ToString());
+                timbersC27.Add(reader.GetDouble(2).ToString());
+                timbersC27.Add(reader.GetDouble(3).ToString());
+                timbersC27.Add(reader.GetDouble(4).ToString());
+                timbersC27.Add(reader.GetDouble(5).ToString());
+                timbersC27.Add(reader.GetDouble(6).ToString());
+                timbersC27.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC30 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C30'";
+            while (reader.Read())
+            {
+                timbersC30.Add(reader.GetString(0));
+                timbersC30.Add(reader.GetInt32(1).ToString());
+                timbersC30.Add(reader.GetDouble(2).ToString());
+                timbersC30.Add(reader.GetDouble(3).ToString());
+                timbersC30.Add(reader.GetDouble(4).ToString());
+                timbersC30.Add(reader.GetDouble(5).ToString());
+                timbersC30.Add(reader.GetDouble(6).ToString());
+                timbersC30.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC35 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C35'";
+            while (reader.Read())
+            {
+                timbersC35.Add(reader.GetString(0));
+                timbersC35.Add(reader.GetInt32(1).ToString());
+                timbersC35.Add(reader.GetDouble(2).ToString());
+                timbersC35.Add(reader.GetDouble(3).ToString());
+                timbersC35.Add(reader.GetDouble(4).ToString());
+                timbersC35.Add(reader.GetDouble(5).ToString());
+                timbersC35.Add(reader.GetDouble(6).ToString());
+                timbersC35.Add(reader.GetDouble(7).ToString());
+            }
+            List<string> timbersC40 = new List<string>();
+            cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C40'";
+            while (reader.Read())
+            {
+                timbersC40.Add(reader.GetString(0));
+                timbersC40.Add(reader.GetInt32(1).ToString());
+                timbersC40.Add(reader.GetDouble(2).ToString());
+                timbersC40.Add(reader.GetDouble(3).ToString());
+                timbersC40.Add(reader.GetDouble(4).ToString());
+                timbersC40.Add(reader.GetDouble(5).ToString());
+                timbersC40.Add(reader.GetDouble(6).ToString());
+                timbersC40.Add(reader.GetDouble(7).ToString());
             }
 
             InitializeComponent();
-            txtdepth.Text = 0.ToString();
-            txtbreadth.Text = 0.ToString();
-            txtDisplacement.Text = 0.ToString();
-            txtForceWidth.Text = 0.ToString();
-            txtInertia.Text = 0.ToString();
-            txtlength.Text = 0.ToString();
-            txtload.Text = 0.ToString();
-            txtMaxDeflection.Text = 0.ToString();
-            txtModulusElasticity.Text = 0.ToString();
-
+            
         }
-        private void initialiseDatabase()
-        {
-
-        }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -120,6 +211,8 @@ namespace beam_form
                     MessageBox.Show("fill in breadth", "error : ");
                     return;
                 }
+                o_beam.length = Convert.ToDecimal(txtlength.Text);
+                o_beam.breadth = Convert.ToDecimal(txtbreadth.Text);
             }
 
 
@@ -127,8 +220,7 @@ namespace beam_form
 
             ArrayList al_vehicles = new ArrayList();
 
-            o_beam.length = Convert.ToDecimal(txtlength.Text);
-            o_beam.breadth = Convert.ToDecimal(txtbreadth.Text);
+            
             o_beam.depth = Convert.ToDecimal(txtdepth.Text);
             o_beam.load = Convert.ToDecimal(txtload.Text);
             o_beam.modulusElasticity = Convert.ToDecimal(txtModulusElasticity.Text);
