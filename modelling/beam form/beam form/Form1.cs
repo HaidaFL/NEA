@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Net.Mime.MediaTypeNames;
 
+
+
 namespace beam_form
 {
     public partial class frmBeamCalculation : Form
@@ -28,6 +30,9 @@ namespace beam_form
 
         public frmBeamCalculation()
         {
+
+            InitializeComponent();
+
             SQLiteConnection conn = new SQLiteConnection("Data Source = materialstrproperties.db; Version = 3; New = True; Compress = True;");
             conn.Open();
             SQLiteCommand cmd = conn.CreateCommand();
@@ -38,6 +43,7 @@ namespace beam_form
             while (reader.Read())
             {
                 timbersC14.Add(reader.GetString(0));
+                System.Diagnostics.Debug.WriteLine(timbersC14[0]);
                 timbersC14.Add(reader.GetInt32(1).ToString());
                 timbersC14.Add(reader.GetDouble(2).ToString());
                 timbersC14.Add(reader.GetDouble(3).ToString());
@@ -46,8 +52,9 @@ namespace beam_form
                 timbersC14.Add(reader.GetDouble(6).ToString());
                 timbersC14.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C16'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC16.Add(reader.GetString(0));
@@ -59,8 +66,9 @@ namespace beam_form
                 timbersC16.Add(reader.GetDouble(6).ToString());
                 timbersC16.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C18'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC18.Add(reader.GetString(0));
@@ -72,8 +80,9 @@ namespace beam_form
                 timbersC18.Add(reader.GetDouble(6).ToString());
                 timbersC18.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C22'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC22.Add(reader.GetString(0));
@@ -85,8 +94,9 @@ namespace beam_form
                 timbersC22.Add(reader.GetDouble(6).ToString());
                 timbersC22.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'TR26'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersTR26.Add(reader.GetString(0));
@@ -98,8 +108,9 @@ namespace beam_form
                 timbersTR26.Add(reader.GetDouble(6).ToString());
                 timbersTR26.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C27'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC27.Add(reader.GetString(0));
@@ -111,8 +122,9 @@ namespace beam_form
                 timbersC27.Add(reader.GetDouble(6).ToString());
                 timbersC27.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C30'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC30.Add(reader.GetString(0));
@@ -124,8 +136,9 @@ namespace beam_form
                 timbersC30.Add(reader.GetDouble(6).ToString());
                 timbersC30.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C35'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC35.Add(reader.GetString(0));
@@ -137,8 +150,9 @@ namespace beam_form
                 timbersC35.Add(reader.GetDouble(6).ToString());
                 timbersC35.Add(reader.GetDouble(7).ToString());
             }
-
+            reader.Close();
             cmd.CommandText = "SELECT * FROM timberstrproperties WHERE class = 'C40'";
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 timbersC40.Add(reader.GetString(0));
@@ -161,8 +175,7 @@ namespace beam_form
             cmboTimberClass.Items.Add(timbersC35[0]);
             cmboTimberClass.Items.Add(timbersC40[0]);
 
-            InitializeComponent();
-
+            cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList;
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -176,12 +189,20 @@ namespace beam_form
 
         private void radUniformAreaForce_CheckedChanged(object sender, EventArgs e)
         {
+            ClearText();
+            cmboTimberClass.Enabled = false;
+            cmboTimberClass.SelectedIndex = -1;
+            txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = true;
             txtbreadth.Enabled = false;
             txtdepth.Enabled = false;
         }
         private void radSinglePointForce_CheckedChanged(object sender, EventArgs e)
         {
+            ClearText();
+            cmboTimberClass.Enabled = false;
+            cmboTimberClass.SelectedIndex = -1;
+            txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = false;
             txtbreadth.Enabled = false;
             txtdepth.Enabled = false;
@@ -189,6 +210,10 @@ namespace beam_form
 
         private void radTimberBeamMD_CheckedChanged(object sender, EventArgs e)
         {
+            ClearText();
+            cmboTimberClass.SelectedIndex = -1;
+            cmboTimberClass.Enabled = true;
+            txtModulusElasticity.Enabled = false;
             txtbreadth.Enabled = true;
             txtdepth.Enabled = true;
         }
@@ -203,7 +228,16 @@ namespace beam_form
             calculatebutton();
 
         }
+        private void ClearText()
+        {
 
+            var TextBoxes = Controls.OfType<TextBox>();
+            foreach (TextBox TextBox in TextBoxes)
+            {
+                TextBox.Clear();
+            }
+
+        }
         private void calculatebutton()
         {
             Beam o_beam = new Beam();
@@ -376,8 +410,33 @@ namespace beam_form
             switch (cmboTimberClass.Text)
             {
                 case ("C14"):
-                    txtModulusElasticity.Text = timberC14[1];
+                    txtModulusElasticity.Text = timbersC14[1];
                     break;
+                case ("C16"):
+                    txtModulusElasticity.Text = timbersC16[1];
+                    break;
+                case ("C18"):
+                    txtModulusElasticity.Text = timbersC18[1];
+                    break;
+                case ("C22"):
+                    txtModulusElasticity.Text = timbersC22[1];
+                    break;
+                case ("TR26"):
+                    txtModulusElasticity.Text = timbersTR26[1];
+                    break;
+                case ("C27"):
+                    txtModulusElasticity.Text = timbersC27[1];
+                    break;
+                case ("C30"):
+                    txtModulusElasticity.Text = timbersC30[1];
+                    break;
+                case ("C35"):
+                    txtModulusElasticity.Text = timbersC35[1];
+                    break;
+                case ("C40"):
+                    txtModulusElasticity.Text = timbersC40[1];
+                    break;
+
             }
         }
         #region
