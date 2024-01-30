@@ -190,8 +190,10 @@ namespace beam_form
         private void radUniformAreaForce_CheckedChanged(object sender, EventArgs e)
         {
             ClearText();
-            cmboTimberClass.Enabled = false;
             cmboTimberClass.SelectedIndex = -1;
+
+            cmboTimberClass.Enabled = false;
+
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = true;
             txtbreadth.Enabled = false;
@@ -200,8 +202,10 @@ namespace beam_form
         private void radSinglePointForce_CheckedChanged(object sender, EventArgs e)
         {
             ClearText();
-            cmboTimberClass.Enabled = false;
             cmboTimberClass.SelectedIndex = -1;
+
+            cmboTimberClass.Enabled = false;
+
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = false;
             txtbreadth.Enabled = false;
@@ -212,7 +216,9 @@ namespace beam_form
         {
             ClearText();
             cmboTimberClass.SelectedIndex = -1;
+
             cmboTimberClass.Enabled = true;
+
             txtModulusElasticity.Enabled = false;
             txtbreadth.Enabled = true;
             txtdepth.Enabled = true;
