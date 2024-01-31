@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,28 @@ namespace beam_form
         List<string> timbersC35 = new List<string>();
         List<string> timbersC40 = new List<string>();
 
+        List<double> depthList = new List<double>();
+        List<double> breadthList = new List<double>();
+        List<double> sectionModulusZxList = new List<double>();
+        List<double> sectionModulusZyList = new List<double>();
+        List<double> areaMoment2ndIxList = new List<double>();
+        List<double> areaMoment2ndIyList = new List<double>();
+
+
+        List<double> D_hundredList = new List<double>();
+        List<double> D_oneFiftyList = new List<double>();
+        List<double> D_oneSevenFiveList = new List<double>();
+        List<double> D_twoHundredList = new List<double>();
+        List<double> D_twoTwoFiveList = new List<double>();
+        List<double> D_twoFiftyList = new List<double>();
+
+
+        List<double> B_threeEightList = new List<double>();
+        List<double> B_fiftyList = new List<double>();
+        List<double> B_sixtyThreeList = new List<double>();
+        List<double> B_seventyFiveList = new List<double>();
+        List<double> B_hundredList = new List<double>();
+        List<double> B_oneFiftyList = new List<double>();
         public frmBeamCalculation()
         {
 
@@ -165,6 +188,7 @@ namespace beam_form
                 timbersC40.Add(reader.GetDouble(7).ToString());
             }
             #endregion
+            #region adding class strength timber to cmbo box
             cmboTimberClass.Items.Add(timbersC14[0]);
             cmboTimberClass.Items.Add(timbersC16[0]);
             cmboTimberClass.Items.Add(timbersC18[0]);
@@ -174,6 +198,181 @@ namespace beam_form
             cmboTimberClass.Items.Add(timbersC30[0]);
             cmboTimberClass.Items.Add(timbersC35[0]);
             cmboTimberClass.Items.Add(timbersC40[0]);
+            #endregion
+            #region timber dimension properties list
+            reader.Close();
+            //cmd.CommandText = "SELECT * FROM timberdimensionproperties";
+            //using (reader = cmd.ExecuteReader())
+            //{
+            //    while (reader.Read())
+            //    {
+            //        depthList.Add(Convert.ToDouble(reader["depth"]));
+            //        breadthList.Add(Convert.ToDouble(reader["breadth"]));
+            //        sectionModulusZxList.Add(Convert.ToDouble(reader["sectionModulusZx"]));
+            //        sectionModulusZyList.Add(Convert.ToDouble(reader["sectionModulusZy"]));
+            //        areaMoment2ndIxList.Add(Convert.ToDouble(reader["areaMoment2ndIx"]));
+            //        areaMoment2ndIyList.Add(Convert.ToDouble(reader["areaMoment2ndIy"]));
+            //    }
+            //}
+            depthList.Add(100);
+            depthList.Add(100);
+            depthList.Add(100);
+            depthList.Add(100);
+            depthList.Add(100);
+
+
+            depthList.Add(150);
+            depthList.Add(150);
+            depthList.Add(150);
+            depthList.Add(150);
+            depthList.Add(150);
+            depthList.Add(150);
+
+
+            depthList.Add(175);
+            depthList.Add(175);
+            depthList.Add(175);
+            depthList.Add(175);
+
+
+            depthList.Add(200);
+            depthList.Add(200);
+            depthList.Add(200);
+            depthList.Add(200);
+            depthList.Add(200);
+            depthList.Add(200);
+
+            depthList.Add(225);
+            depthList.Add(225);
+            depthList.Add(225);
+            depthList.Add(225);
+            depthList.Add(225);
+
+            depthList.Add(250);
+            depthList.Add(250);
+            depthList.Add(250);
+            depthList.Add(250);
+            depthList.Add(250);
+             // split
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+            breadthList.Add(100);
+
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+            breadthList.Add(100);
+            breadthList.Add(150);
+
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+            breadthList.Add(100);
+            breadthList.Add(150);
+
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+            breadthList.Add(100);
+
+            breadthList.Add(38);
+            breadthList.Add(50);
+            breadthList.Add(63);
+            breadthList.Add(75);
+            breadthList.Add(100);
+
+
+            #endregion
+            #region default timber drop-downs
+            cmbodepth.Items.Add(depthList[0]); //100
+            cmbodepth.Items.Add(depthList[5]); //150
+            cmbodepth.Items.Add(depthList[11]);  //175
+            cmbodepth.Items.Add(depthList[15]);  //200
+            cmbodepth.Items.Add(depthList[21]);  //225
+            cmbodepth.Items.Add(depthList[26]);  //250
+
+            cmbobreadth.Items.Add(breadthList[0]);
+            cmbobreadth.Items.Add(breadthList[1]);
+            cmbobreadth.Items.Add(breadthList[2]);
+            cmbobreadth.Items.Add(breadthList[3]);
+            cmbobreadth.Items.Add(breadthList[4]);
+            cmbobreadth.Items.Add(breadthList[10]);
+            #endregion
+            #region depth compatibility lists for TIMBER
+            for (int i = 0; i < 6; i++) {
+                if (i < 4) {
+
+                    D_hundredList.Add(breadthList[i]);
+                    D_oneFiftyList.Add(breadthList[i]);
+                    D_oneSevenFiveList.Add(breadthList[i]);
+                    D_twoHundredList.Add(breadthList[i]);
+                    D_twoTwoFiveList.Add(breadthList[i]);
+                    D_twoFiftyList.Add(breadthList[i]);
+
+                }
+                if (i == 4) {
+
+                    D_hundredList.Add(breadthList[i]);
+                    D_oneFiftyList.Add(breadthList[i]);
+                    D_twoHundredList.Add(breadthList[i]);
+                    D_twoTwoFiveList.Add(breadthList[i]);
+                    D_twoFiftyList.Add(breadthList[i]);
+                }
+                if (i == 5)
+                {
+                    D_oneFiftyList.Add(breadthList[10]);
+                    D_twoHundredList.Add(breadthList[10]);
+                }
+            }
+            #endregion
+            #region breadth compatibility lists for TIMBER
+            B_threeEightList.Add(depthList[1]);
+            B_fiftyList.Add(depthList[1]);
+            B_sixtyThreeList.Add(depthList[1]);
+            B_seventyFiveList.Add(depthList[1]);
+            B_hundredList.Add(depthList[1]);
+
+            B_threeEightList.Add(depthList[5]);
+            B_fiftyList.Add(depthList[5]);
+            B_sixtyThreeList.Add(depthList[5]);
+            B_seventyFiveList.Add(depthList[5]);
+            B_hundredList.Add(depthList[5]);
+            B_oneFiftyList.Add(depthList[5]);
+
+            B_threeEightList.Add(depthList[11]);
+            B_fiftyList.Add(depthList[11]);
+            B_sixtyThreeList.Add(depthList[11]);
+            B_seventyFiveList.Add(depthList[11]);
+
+            B_threeEightList.Add(depthList[15]);
+            B_fiftyList.Add(depthList[15]);
+            B_sixtyThreeList.Add(depthList[15]);
+            B_seventyFiveList.Add(depthList[15]);
+            B_hundredList.Add(depthList[15]);
+            B_oneFiftyList.Add(depthList[15]);
+
+            B_threeEightList.Add(depthList[21]);
+            B_fiftyList.Add(depthList[21]);
+            B_sixtyThreeList.Add(depthList[21]);
+            B_seventyFiveList.Add(depthList[21]);
+            B_hundredList.Add(depthList[21]);
+
+            B_threeEightList.Add(depthList[26]);
+            B_fiftyList.Add(depthList[26]);
+            B_sixtyThreeList.Add(depthList[26]);
+            B_seventyFiveList.Add(depthList[26]);
+            B_hundredList.Add(depthList[26]);
+            #endregion
 
             cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -196,8 +395,15 @@ namespace beam_form
 
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = true;
+
             txtbreadth.Enabled = false;
             txtdepth.Enabled = false;
+
+            cmbobreadth.Visible = false;
+            cmbodepth.Visible = false;
+
+            txtbreadth.Visible = true;
+            txtdepth.Visible = true;
         }
         private void radSinglePointForce_CheckedChanged(object sender, EventArgs e)
         {
@@ -208,6 +414,13 @@ namespace beam_form
 
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = false;
+
+            txtbreadth.Visible = true;
+            txtdepth.Visible = true;
+
+            cmbobreadth.Visible = false;
+            cmbodepth.Visible = false;
+
             txtbreadth.Enabled = false;
             txtdepth.Enabled = false;
         }
@@ -220,10 +433,92 @@ namespace beam_form
             cmboTimberClass.Enabled = true;
 
             txtModulusElasticity.Enabled = false;
+
+            txtbreadth.Visible = false;
+            txtdepth.Visible = false;
+
+            cmbobreadth.Visible = true;
+            cmbodepth.Visible = true;
+
             txtbreadth.Enabled = true;
             txtdepth.Enabled = true;
         }
+        #region node traversal lmao
+        private void cmbobreadth_TextChanged(object sender, EventArgs e)
+        {
+            switch (cmbobreadth.Text)
+            {
+                case ("38"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_threeEightList.Count; i++)
+                        cmbodepth.Items.Add(B_threeEightList[i]);
+                break;
+                case ("50"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_fiftyList.Count; i++)
+                        cmbodepth.Items.Add(B_fiftyList[i]);
+                break;
+                case ("63"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_sixtyThreeList.Count; i++)
+                        cmbodepth.Items.Add(B_sixtyThreeList[i]);
+                break;
+                case ("75"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_seventyFiveList.Count; i++)
+                        cmbodepth.Items.Add(B_seventyFiveList[i]);
+                break;
+                case ("100"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_hundredList.Count; i++)
+                        cmbodepth.Items.Add(B_hundredList[i]);
+                break;
+                case ("150"):
+                    cmbodepth.Items.Clear();
+                   for (int i = 0; i < B_oneFiftyList.Count; i++)
+                        cmbodepth.Items.Add(B_oneFiftyList[i]);
+                break;
 
+            }
+        }
+        private void cmbodepth_TextChanged(object sender, EventArgs e)
+        {
+            switch (cmbodepth.Text)
+            {
+                case ("100"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_hundredList.Count; i++)
+                        cmbobreadth.Items.Add(D_hundredList[i]);
+                    break;
+                case ("150"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_oneFiftyList.Count; i++)
+                        cmbobreadth.Items.Add(D_oneFiftyList[i]);
+                    break;
+                case ("175"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_oneSevenFiveList.Count; i++)
+                        cmbobreadth.Items.Add(D_oneSevenFiveList[i]);
+                    break;
+                case ("200"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_twoHundredList.Count; i++)
+                        cmbobreadth.Items.Add(D_twoHundredList[i]);
+                    break;
+                case ("225"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_twoTwoFiveList.Count; i++)
+                        cmbobreadth.Items.Add(D_twoTwoFiveList[i]);
+                    break;
+                case ("250"):
+                    cmbobreadth.Items.Clear();
+                    for (int i = 0; i < D_twoFiftyList.Count; i++)
+                        cmbobreadth.Items.Add(D_twoFiftyList[i]);
+                    break;
+
+            }
+        }
+        #endregion
         private void frmBeamCalculation_Load(object sender, EventArgs e)
         {
             radUniformAreaForce.Checked = true;
@@ -265,7 +560,7 @@ namespace beam_form
             {
                 if (txtdepth.Text == "")
                 {
-                    MessageBox.Show("fill in depth", "error : ");
+                    MessageBox.Show("fill in depth within database", "error : ");
                     return;
                 }
                 if (txtbreadth.Text == "")
@@ -318,7 +613,7 @@ namespace beam_form
 
             if (radUniformAreaForce.Checked == true)
             {
-                txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D().ToString();
+                txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D(txtModulusElasticity.Text, cmbobreadth.Text, cmbodepth.Text).ToString();
 
             }
 
@@ -445,6 +740,7 @@ namespace beam_form
 
             }
         }
+        
         #region
         //decimal calcCarDeflection(Beam o_beam)
         //{
@@ -507,14 +803,39 @@ namespace beam_form
                 return 0;
 
             }
-            public decimal calcMaxTimberDeflection2D()
+            public decimal calcMaxTimberDeflection2D(string txtModulusElasticity, string depth, string breadth)
             {
+                int index = 0;
+                #region finding index for inertia
+
+                if (Convert.ToDecimal(depth) == 150)
+                   index += 5;
+                if (Convert.ToDecimal(depth) == 175)
+                    index += 11;
+                if (Convert.ToDecimal(depth) == 200)
+                    index += 15;
+                if (Convert.ToDecimal(depth) == 225)
+                    index += 21;
+                if (Convert.ToDecimal(depth) == 250)
+                    index += 26;
+
+                if (Convert.ToDecimal(breadth) == 50)
+                    index += 1;
+                if (Convert.ToDecimal(breadth) == 63)
+                    index += 2;
+                if (Convert.ToDecimal(breadth) == 75)
+                    index += 3;
+                if (Convert.ToDecimal(breadth) == 100)
+                    index += 4;
+                if (Convert.ToDecimal(breadth) == 150)
+                    index += 5;
+                #endregion
                 decimal MaxBeamDeflection = 0;
 
-                decimal timberModulusElasticity = 1; // get from database depending on dimensions
+                decimal timberModulusElasticity = Convert.ToDecimal(txtModulusElasticity); // get from database depending on dimensions
 
-                decimal timberMomentOfInertia = 1; // get from database depending on dimensions
-
+                decimal timberMomentOfInertia = 1; // NEED TO GET LISTS FROM DATABASE, you have the index and everything
+                //decimal timberMomentOfInertia = sectionModulusZxList[index]    //uncomment when have list from database
 
                 decimal numerator = load * power(length, 3);
                 decimal denominator = 48 * timberModulusElasticity * timberMomentOfInertia;
@@ -568,6 +889,8 @@ namespace beam_form
                 return value;
             }
         }
+
+        
     }
         
     
