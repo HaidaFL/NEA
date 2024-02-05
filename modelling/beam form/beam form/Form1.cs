@@ -199,114 +199,149 @@ namespace beam_form
             cmboTimberClass.Items.Add(timbersC35[0]);
             cmboTimberClass.Items.Add(timbersC40[0]);
             #endregion
-            #region timber dimension properties list
+            
             reader.Close();
-            //cmd.CommandText = "SELECT * FROM timberdimensionproperties";
-            //using (reader = cmd.ExecuteReader())
-            //{
-            //    while (reader.Read())
-            //    {
-            //        depthList.Add(Convert.ToDouble(reader["depth"]));
-            //        breadthList.Add(Convert.ToDouble(reader["breadth"]));
-            //        sectionModulusZxList.Add(Convert.ToDouble(reader["sectionModulusZx"]));
-            //        sectionModulusZyList.Add(Convert.ToDouble(reader["sectionModulusZy"]));
-            //        areaMoment2ndIxList.Add(Convert.ToDouble(reader["areaMoment2ndIx"]));
-            //        areaMoment2ndIyList.Add(Convert.ToDouble(reader["areaMoment2ndIy"]));
-            //    }
-            //}
-            depthList.Add(100);
-            depthList.Add(100);
-            depthList.Add(100);
-            depthList.Add(100);
-            depthList.Add(100);
+            cmd.CommandText = "SELECT * FROM timberdimensionproperties";
+            using (reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    depthList.Add(Convert.ToDouble(reader["depth"]));
+                    breadthList.Add(Convert.ToDouble(reader["breadth"]));
+                    sectionModulusZxList.Add(Convert.ToDouble(reader["sectionModulusZx"]));
+                    sectionModulusZyList.Add(Convert.ToDouble(reader["sectionModulusZy"]));
+                    areaMoment2ndIxList.Add(Convert.ToDouble(reader["areaMoment2ndIx"]));
+                    areaMoment2ndIyList.Add(Convert.ToDouble(reader["areaMoment2ndIy"]));
+                }
+            }
+            reader.Close();
+            #region timber dimension properties list
+            //depthList.Add(100);
+            //depthList.Add(100);
+            //depthList.Add(100);
+            //depthList.Add(100);
+            //depthList.Add(100);
 
 
-            depthList.Add(150);
-            depthList.Add(150);
-            depthList.Add(150);
-            depthList.Add(150);
-            depthList.Add(150);
-            depthList.Add(150);
+            //depthList.Add(150);
+            //depthList.Add(150);
+            //depthList.Add(150);
+            //depthList.Add(150);
+            //depthList.Add(150);
+            //depthList.Add(150);
 
 
-            depthList.Add(175);
-            depthList.Add(175);
-            depthList.Add(175);
-            depthList.Add(175);
+            //depthList.Add(175);
+            //depthList.Add(175);
+            //depthList.Add(175);
+            //depthList.Add(175);
 
 
-            depthList.Add(200);
-            depthList.Add(200);
-            depthList.Add(200);
-            depthList.Add(200);
-            depthList.Add(200);
-            depthList.Add(200);
+            //depthList.Add(200);
+            //depthList.Add(200);
+            //depthList.Add(200);
+            //depthList.Add(200);
+            //depthList.Add(200);
+            //depthList.Add(200);
 
-            depthList.Add(225);
-            depthList.Add(225);
-            depthList.Add(225);
-            depthList.Add(225);
-            depthList.Add(225);
+            //depthList.Add(225);
+            //depthList.Add(225);
+            //depthList.Add(225);
+            //depthList.Add(225);
+            //depthList.Add(225);
 
-            depthList.Add(250);
-            depthList.Add(250);
-            depthList.Add(250);
-            depthList.Add(250);
-            depthList.Add(250);
-             // split
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
-            breadthList.Add(100);
+            //depthList.Add(250);
+            //depthList.Add(250);
+            //depthList.Add(250);
+            //depthList.Add(250);
+            //depthList.Add(250);
+            // // split
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
+            //breadthList.Add(100);
 
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
-            breadthList.Add(100);
-            breadthList.Add(150);
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
+            //breadthList.Add(100);
+            //breadthList.Add(150);
 
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
 
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
-            breadthList.Add(100);
-            breadthList.Add(150);
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
+            //breadthList.Add(100);
+            //breadthList.Add(150);
 
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
-            breadthList.Add(100);
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
+            //breadthList.Add(100);
 
-            breadthList.Add(38);
-            breadthList.Add(50);
-            breadthList.Add(63);
-            breadthList.Add(75);
-            breadthList.Add(100);
+            //breadthList.Add(38);
+            //breadthList.Add(50);
+            //breadthList.Add(63);
+            //breadthList.Add(75);
+            //breadthList.Add(100);
 
 
             #endregion
             #region default timber drop-downs
-            cmbodepth.Items.Add(depthList[0]); //100
-            cmbodepth.Items.Add(depthList[5]); //150
-            cmbodepth.Items.Add(depthList[11]);  //175
-            cmbodepth.Items.Add(depthList[15]);  //200
-            cmbodepth.Items.Add(depthList[21]);  //225
-            cmbodepth.Items.Add(depthList[26]);  //250
 
-            cmbobreadth.Items.Add(breadthList[0]);
-            cmbobreadth.Items.Add(breadthList[1]);
-            cmbobreadth.Items.Add(breadthList[2]);
-            cmbobreadth.Items.Add(breadthList[3]);
-            cmbobreadth.Items.Add(breadthList[4]);
-            cmbobreadth.Items.Add(breadthList[10]);
+            double latestDepth = 0;
+            for (int i = 0;i < depthList.Count; i++)
+            {
+                if (latestDepth != depthList[i])
+                {
+                    cmbodepth.Items.Add(depthList[i]); //100
+                }
+                latestDepth = depthList[i];
+            }
+            cmd.CommandText = "SELECT distinct breadth FROM timberdimensionproperties ORDER BY breadth";
+            using (reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    cmbobreadth.Items.Add(Convert.ToDouble(reader["breadth"]));
+                    
+                }
+            }
+            reader.Close();
+            #region
+            //breadthList.Sort();
+            //double latestBreadth = 0;
+            //for (int i = 0; i < breadthList.Count; i++)
+            //{
+            //    if (latestBreadth != breadthList[i])
+            //    {
+            //        cmbobreadth.Items.Add(breadthList[i]); //100
+            //    }
+            //    latestBreadth = breadthList[i];
+            //}
+            //depthList.Distinct();
+            //cmbodepth.Items.Add(depthList[0]); //100
+            //cmbodepth.Items.Add(depthList[5]); //150
+            //cmbodepth.Items.Add(depthList[11]);  //175
+            //cmbodepth.Items.Add(depthList[15]);  //200
+            //cmbodepth.Items.Add(depthList[21]);  //225
+            //cmbodepth.Items.Add(depthList[26]);  //250
+
+            //cmbobreadth.Items.Add(breadthList[0]);
+            //cmbobreadth.Items.Add(breadthList[1]);
+            //cmbobreadth.Items.Add(breadthList[2]);
+            //cmbobreadth.Items.Add(breadthList[3]);
+            //cmbobreadth.Items.Add(breadthList[4]);
+            //cmbobreadth.Items.Add(breadthList[10]);
+            #endregion
             #endregion
             #region depth compatibility lists for TIMBER
             for (int i = 0; i < 6; i++) {
@@ -375,6 +410,19 @@ namespace beam_form
             #endregion
 
             cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+        public void setInertia(decimal depth, decimal breadth)
+        {
+            SQLiteConnection conn = new SQLiteConnection("Data Source = materialstrproperties.db; Version = 3; New = True; Compress = True;");
+            conn.Open();
+            SQLiteCommand cmd = conn.CreateCommand();
+            cmd.CommandText = $"SELECT * FROM timberdimensionproperties WHERE depth={depth} AND breadth={breadth}";
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                txtInertia.Text = Convert.ToString(reader["areaMoment2ndIx"]);
+            }
+            reader.Close();
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -446,77 +494,105 @@ namespace beam_form
         #region node traversal lmao
         private void cmbobreadth_TextChanged(object sender, EventArgs e)
         {
-            switch (cmbobreadth.Text)
+            cmbodepth.Items.Clear();
+            for (int i = 0; i < depthList.Count; i++)
             {
-                case ("38"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_threeEightList.Count; i++)
-                        cmbodepth.Items.Add(B_threeEightList[i]);
-                break;
-                case ("50"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_fiftyList.Count; i++)
-                        cmbodepth.Items.Add(B_fiftyList[i]);
-                break;
-                case ("63"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_sixtyThreeList.Count; i++)
-                        cmbodepth.Items.Add(B_sixtyThreeList[i]);
-                break;
-                case ("75"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_seventyFiveList.Count; i++)
-                        cmbodepth.Items.Add(B_seventyFiveList[i]);
-                break;
-                case ("100"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_hundredList.Count; i++)
-                        cmbodepth.Items.Add(B_hundredList[i]);
-                break;
-                case ("150"):
-                    cmbodepth.Items.Clear();
-                   for (int i = 0; i < B_oneFiftyList.Count; i++)
-                        cmbodepth.Items.Add(B_oneFiftyList[i]);
-                break;
+                if (breadthList[i] == Convert.ToDouble(cmbobreadth.Text))
+                {
+                    cmbodepth.Items.Add(depthList[i]);
 
+                }
             }
+            if (cmbodepth.Text != "")
+            {
+                setInertia(Convert.ToDecimal(cmbodepth.Text), Convert.ToDecimal(cmbobreadth.Text));
+            }
+            //switch (cmbobreadth.Text)
+            //{
+            //    case ("38"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_threeEightList.Count; i++)
+            //            cmbodepth.Items.Add(B_threeEightList[i]);
+            //    break;
+            //    case ("50"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_fiftyList.Count; i++)
+            //            cmbodepth.Items.Add(B_fiftyList[i]);
+            //    break;
+            //    case ("63"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_sixtyThreeList.Count; i++)
+            //            cmbodepth.Items.Add(B_sixtyThreeList[i]);
+            //    break;
+            //    case ("75"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_seventyFiveList.Count; i++)
+            //            cmbodepth.Items.Add(B_seventyFiveList[i]);
+            //    break;
+            //    case ("100"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_hundredList.Count; i++)
+            //            cmbodepth.Items.Add(B_hundredList[i]);
+            //    break;
+            //    case ("150"):
+            //        cmbodepth.Items.Clear();
+            //       for (int i = 0; i < B_oneFiftyList.Count; i++)
+            //            cmbodepth.Items.Add(B_oneFiftyList[i]);
+            //    break;
+
+            //}
         }
+      
+     
         private void cmbodepth_TextChanged(object sender, EventArgs e)
         {
-            switch (cmbodepth.Text)
+            cmbobreadth.Items.Clear();
+            for (int i = 0; i < breadthList.Count; i++)
             {
-                case ("100"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_hundredList.Count; i++)
-                        cmbobreadth.Items.Add(D_hundredList[i]);
-                    break;
-                case ("150"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_oneFiftyList.Count; i++)
-                        cmbobreadth.Items.Add(D_oneFiftyList[i]);
-                    break;
-                case ("175"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_oneSevenFiveList.Count; i++)
-                        cmbobreadth.Items.Add(D_oneSevenFiveList[i]);
-                    break;
-                case ("200"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_twoHundredList.Count; i++)
-                        cmbobreadth.Items.Add(D_twoHundredList[i]);
-                    break;
-                case ("225"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_twoTwoFiveList.Count; i++)
-                        cmbobreadth.Items.Add(D_twoTwoFiveList[i]);
-                    break;
-                case ("250"):
-                    cmbobreadth.Items.Clear();
-                    for (int i = 0; i < D_twoFiftyList.Count; i++)
-                        cmbobreadth.Items.Add(D_twoFiftyList[i]);
-                    break;
+                if (depthList[i] == Convert.ToDouble(cmbodepth.Text))
+                {
+                    cmbobreadth.Items.Add(breadthList[i]);
 
+                }
             }
+            if (cmbobreadth.Text != "")
+            {
+                setInertia(Convert.ToDecimal(cmbodepth.Text), Convert.ToDecimal(cmbobreadth.Text));
+            }
+            //switch (cmbodepth.Text)
+            //{
+            //    case ("100"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_hundredList.Count; i++)
+            //            cmbobreadth.Items.Add(D_hundredList[i]);
+            //        break;
+            //    case ("150"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_oneFiftyList.Count; i++)
+            //            cmbobreadth.Items.Add(D_oneFiftyList[i]);
+            //        break;
+            //    case ("175"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_oneSevenFiveList.Count; i++)
+            //            cmbobreadth.Items.Add(D_oneSevenFiveList[i]);
+            //        break;
+            //    case ("200"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_twoHundredList.Count; i++)
+            //            cmbobreadth.Items.Add(D_twoHundredList[i]);
+            //        break;
+            //    case ("225"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_twoTwoFiveList.Count; i++)
+            //            cmbobreadth.Items.Add(D_twoTwoFiveList[i]);
+            //        break;
+            //    case ("250"):
+            //        cmbobreadth.Items.Clear();
+            //        for (int i = 0; i < D_twoFiftyList.Count; i++)
+            //            cmbobreadth.Items.Add(D_twoFiftyList[i]);
+            //        break;
+
+            //}
         }
         #endregion
         private void frmBeamCalculation_Load(object sender, EventArgs e)
@@ -761,134 +837,7 @@ namespace beam_form
 
         //}
         #endregion
-        class Beam
-        {
-            public decimal breadth { get; set; }
-            public decimal depth { get; set; }
-            public decimal length { get; set; }
-            public decimal load { get; set; }
-            public decimal modulusElasticity { get; set; }
-            public decimal momentOfInertia { get; set; }
-            public decimal stiffnessBeam { get; set; }
-
-            public decimal beamDisplacement { get; set; }
-
-            public decimal calcUniformAreaDeflection2D(decimal w)
-            {
-                decimal MaxDeflection = 0;
-                decimal DisplacementEndPoint = beamDisplacement;
-                if ((beamDisplacement + w / 2) > (length / 2))
-                {
-                    DisplacementEndPoint = length - (w + beamDisplacement);
-                }
-
-
-                if (w < length)
-                {
-                    MaxDeflection = w / (384 * modulusElasticity * momentOfInertia);
-                    MaxDeflection = MaxDeflection * ((8 * power(length, 3)) - (4 * length * power(DisplacementEndPoint, 2)) + power(DisplacementEndPoint, 3));
-
-                    return MaxDeflection;
-                }
-                if (w == length)
-                {
-                    decimal numerator = 5 * w * power(length, 4);
-                    decimal denominator = 384 * modulusElasticity * momentOfInertia;
-                    MaxDeflection = numerator / denominator;
-
-                    return MaxDeflection;
-                }
-
-
-                return 0;
-
-            }
-            public decimal calcMaxTimberDeflection2D(string txtModulusElasticity, string depth, string breadth)
-            {
-                int index = 0;
-                #region finding index for inertia
-
-                if (Convert.ToDecimal(depth) == 150)
-                   index += 5;
-                if (Convert.ToDecimal(depth) == 175)
-                    index += 11;
-                if (Convert.ToDecimal(depth) == 200)
-                    index += 15;
-                if (Convert.ToDecimal(depth) == 225)
-                    index += 21;
-                if (Convert.ToDecimal(depth) == 250)
-                    index += 26;
-
-                if (Convert.ToDecimal(breadth) == 50)
-                    index += 1;
-                if (Convert.ToDecimal(breadth) == 63)
-                    index += 2;
-                if (Convert.ToDecimal(breadth) == 75)
-                    index += 3;
-                if (Convert.ToDecimal(breadth) == 100)
-                    index += 4;
-                if (Convert.ToDecimal(breadth) == 150)
-                    index += 5;
-                #endregion
-                decimal MaxBeamDeflection = 0;
-
-                decimal timberModulusElasticity = Convert.ToDecimal(txtModulusElasticity); // get from database depending on dimensions
-
-                decimal timberMomentOfInertia = 1; // NEED TO GET LISTS FROM DATABASE, you have the index and everything
-                //decimal timberMomentOfInertia = sectionModulusZxList[index]    //uncomment when have list from database
-
-                decimal numerator = load * power(length, 3);
-                decimal denominator = 48 * timberModulusElasticity * timberMomentOfInertia;
-                MaxBeamDeflection = numerator / denominator;
-                return MaxBeamDeflection;
-            }
-
-            public decimal calcMaxBeamDeflection2D() //simply supported 
-            {
-
-                decimal DisplacementEndPoint = beamDisplacement;
-                if (beamDisplacement > (length / 2))
-                {
-                    DisplacementEndPoint = length - beamDisplacement;
-                }
-
-                decimal numerator = (load * DisplacementEndPoint) * (3 * power(length, 2) - 4 * power(DisplacementEndPoint, 2));
-                decimal denominator = (48 * modulusElasticity * momentOfInertia);
-
-                decimal deflection = numerator / denominator; //in meters
-
-                Console.WriteLine("deflection in millimeters");
-
-
-                return decimal.Round(100 * deflection, 2);
-            }
-            public decimal power(decimal value, int power)
-            {
-                if (power == 0)
-                {
-                    return 1;
-                }
-                if (power > 0)
-                {
-                    for (int i = 1; i < power; i++)
-                    {
-                        value *= value;
-                    }
-                }
-                else
-                {
-                    for (int i = 1; i < -power; i++)
-                    {
-                        value *= value;
-                    }
-                    value = 1 / value;
-                }
-
-
-
-                return value;
-            }
-        }
+        
 
         
     }

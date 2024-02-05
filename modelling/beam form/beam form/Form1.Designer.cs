@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtlength = new System.Windows.Forms.TextBox();
             this.lbllength = new System.Windows.Forms.Label();
             this.lblinertia = new System.Windows.Forms.Label();
@@ -240,16 +240,16 @@
             // chrtDeflectionGraph
             // 
             this.chrtDeflectionGraph.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.Name = "ChartArea1";
-            this.chrtDeflectionGraph.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chrtDeflectionGraph.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chrtDeflectionGraph.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chrtDeflectionGraph.Legends.Add(legend1);
             this.chrtDeflectionGraph.Location = new System.Drawing.Point(404, 540);
             this.chrtDeflectionGraph.Name = "chrtDeflectionGraph";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chrtDeflectionGraph.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chrtDeflectionGraph.Series.Add(series1);
             this.chrtDeflectionGraph.Size = new System.Drawing.Size(1464, 471);
             this.chrtDeflectionGraph.TabIndex = 18;
             this.chrtDeflectionGraph.Text = "chart1";
@@ -319,7 +319,7 @@
             this.cmbodepth.FormattingEnabled = true;
             this.cmbodepth.Location = new System.Drawing.Point(281, 385);
             this.cmbodepth.Name = "cmbodepth";
-            this.cmbodepth.Size = new System.Drawing.Size(47, 28);
+            this.cmbodepth.Size = new System.Drawing.Size(61, 28);
             this.cmbodepth.TabIndex = 25;
             this.cmbodepth.Visible = false;
             this.cmbodepth.TextChanged += new System.EventHandler(this.cmbodepth_TextChanged);
@@ -329,7 +329,7 @@
             this.cmbobreadth.FormattingEnabled = true;
             this.cmbobreadth.Location = new System.Drawing.Point(446, 388);
             this.cmbobreadth.Name = "cmbobreadth";
-            this.cmbobreadth.Size = new System.Drawing.Size(47, 28);
+            this.cmbobreadth.Size = new System.Drawing.Size(64, 28);
             this.cmbobreadth.TabIndex = 26;
             this.cmbobreadth.Visible = false;
             this.cmbobreadth.TextChanged += new System.EventHandler(this.cmbobreadth_TextChanged);

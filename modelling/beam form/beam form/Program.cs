@@ -85,7 +85,7 @@ namespace beam_form
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "INSERT INTO timberdimensionproperties VALUES (175, 38,194,42.1,16.97,0.8)";
                 cmd.ExecuteNonQuery();
-                cmd.CommandText = "INSERT INTO timberdimensionproperties VALUES (175,50,255.2,72.9,22.33,1.82";
+                cmd.CommandText = "INSERT INTO timberdimensionproperties VALUES (175,50,255.2,72.9,22.33,1.82)";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "INSERT INTO timberdimensionproperties VALUES (175,63,321.6,115.8,28.14,3.65)";
                 cmd.ExecuteNonQuery();

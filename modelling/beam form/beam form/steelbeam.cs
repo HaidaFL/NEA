@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace beam_form
 {
-    internal class steelbeam //withg normal cross-section
+    internal class steelbeam //with normal cross-section
     {
         decimal sectionModulus; // it is breadth times depth^2, all divided by 6
 
@@ -61,7 +61,10 @@ namespace beam_form
 
             ReactionForceB = (((e_load - s_load) * w) / 2) * (beamDisplacement + w - (w / 3)) + (s_load * w * (((beamDisplacement + w) - (w / 2)) / length));
             ReactionForceA = (((e_load - s_load) * w) / 2) * (length - (beamDisplacement + (w/3))) + (s_load * w * ((length - (beamDisplacement + (w / 3))) / length));
-            
+
+            DeflectionA = ReactionForceA;
+            DeflectionB = DeflectionA;
+            MaxDeflection = DeflectionB;
 
             return 0;
         }
