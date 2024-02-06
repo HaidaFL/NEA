@@ -36,7 +36,7 @@ namespace beam_form
         List<double> areaMoment2ndIxList = new List<double>();
         List<double> areaMoment2ndIyList = new List<double>();
 
-
+        #region manual list code (outdated manual code) to be ignored
         List<double> D_hundredList = new List<double>();
         List<double> D_oneFiftyList = new List<double>();
         List<double> D_oneSevenFiveList = new List<double>();
@@ -51,6 +51,7 @@ namespace beam_form
         List<double> B_seventyFiveList = new List<double>();
         List<double> B_hundredList = new List<double>();
         List<double> B_oneFiftyList = new List<double>();
+        #endregion
         public frmBeamCalculation()
         {
 
@@ -316,8 +317,8 @@ namespace beam_form
                 }
             }
             reader.Close();
-            #region
-            //breadthList.Sort();
+            #region outdated sort (maybe can be used to verify) do with chachu
+            //breadthList.Sort(); 
             //double latestBreadth = 0;
             //for (int i = 0; i < breadthList.Count; i++)
             //{
@@ -343,7 +344,7 @@ namespace beam_form
             //cmbobreadth.Items.Add(breadthList[10]);
             #endregion
             #endregion
-            #region depth compatibility lists for TIMBER
+            #region depth compatibility lists for TIMBER (outdated manual code)
             for (int i = 0; i < 6; i++) {
                 if (i < 4) {
 
@@ -370,7 +371,7 @@ namespace beam_form
                 }
             }
             #endregion
-            #region breadth compatibility lists for TIMBER
+            #region breadth compatibility lists for TIMBER (outdated manual code)
             B_threeEightList.Add(depthList[1]);
             B_fiftyList.Add(depthList[1]);
             B_sixtyThreeList.Add(depthList[1]);
@@ -409,7 +410,11 @@ namespace beam_form
             B_hundredList.Add(depthList[26]);
             #endregion
 
-            cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList; //you cant type in the cmbo box because of thia
+        }
+        private void verifyList(List<double> dimension)
+        {
+            dimension.Distinct();  // DO THIS WITH CHACHU WHEN WAKUP
         }
         public void setInertia(decimal depth, decimal breadth)
         {
@@ -424,6 +429,7 @@ namespace beam_form
             }
             reader.Close();
         }
+        
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -559,6 +565,7 @@ namespace beam_form
             {
                 setInertia(Convert.ToDecimal(cmbodepth.Text), Convert.ToDecimal(cmbobreadth.Text));
             }
+            #region manual bologne
             //switch (cmbodepth.Text)
             //{
             //    case ("100"):
@@ -593,8 +600,10 @@ namespace beam_form
             //        break;
 
             //}
+            #endregion
         }
         #endregion
+
         private void frmBeamCalculation_Load(object sender, EventArgs e)
         {
             radUniformAreaForce.Checked = true;
@@ -634,24 +643,20 @@ namespace beam_form
             }
             if (radTimberBeamMD.Checked == true)
             {
-                if (txtdepth.Text == "")
+                if (cmbodepth.Text == "")
                 {
-                    MessageBox.Show("fill in depth within database", "error : ");
+                    MessageBox.Show("fill in depth", "error : ");
                     return;
                 }
-                if (txtbreadth.Text == "")
+                if (cmbobreadth.Text == "")
                 {
                     MessageBox.Show("fill in breadth", "error : ");
                     return;
                 }
-                o_beam.breadth = Convert.ToDecimal(txtbreadth.Text);
-                o_beam.depth = Convert.ToDecimal(txtdepth.Text);
+                o_beam.breadth = Convert.ToDecimal(cmbobreadth.Text);
+                o_beam.depth = Convert.ToDecimal(cmbodepth.Text);
             }
 
-
-
-
-            ArrayList al_vehicles = new ArrayList();
 
             o_beam.length = Convert.ToDecimal(txtlength.Text);
             o_beam.load = Convert.ToDecimal(txtload.Text);
@@ -687,10 +692,10 @@ namespace beam_form
                 GraphDisplacement = o_beam.beamDisplacement;
             }
 
-            if (radUniformAreaForce.Checked == true)
+            if (radTimberBeamMD.Checked == true)
             {
                 txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D(txtModulusElasticity.Text, cmbobreadth.Text, cmbodepth.Text).ToString();
-
+                GraphDisplacement = (Convert.ToDecimal(0.5) * o_beam.length);
             }
 
             // Clear any existing series

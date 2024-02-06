@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace beam_form
 {
-    internal class steelbeam //with normal cross-section
+    internal class crossSectionBeam //with normal cross-section
     {
         decimal sectionModulus; // it is breadth times depth^2, all divided by 6
 
