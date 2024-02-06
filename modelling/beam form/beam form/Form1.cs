@@ -410,7 +410,11 @@ namespace beam_form
             B_hundredList.Add(depthList[26]);
             #endregion
 
-            cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList; //you cant type in the cmbo box because of thia
+            cmboTimberClass.DropDownStyle = ComboBoxStyle.DropDownList; //you cant type in the cmbo box because of this
+            cmboTimberCalcs.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmboTimberCalcs.Items.Add("variable distance/angle single point force - StressTest");
+            cmboTimberCalcs.Items.Add("variable distance uniform force - StressTest");
+            cmboTimberCalcs.Items.Add("variable distance sloped uniform force - StressTest");
         }
         private void verifyList(List<double> dimension)
         {
@@ -444,8 +448,10 @@ namespace beam_form
         {
             ClearText();
             cmboTimberClass.SelectedIndex = -1;
+            cmboTimberCalcs.SelectedIndex = -1;
 
             cmboTimberClass.Enabled = false;
+            cmboTimberCalcs.Enabled = false;
 
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = true;
@@ -463,8 +469,10 @@ namespace beam_form
         {
             ClearText();
             cmboTimberClass.SelectedIndex = -1;
+            cmboTimberCalcs.SelectedIndex = -1;
 
             cmboTimberClass.Enabled = false;
+            cmboTimberCalcs.Enabled = false;
 
             txtModulusElasticity.Enabled = true;
             txtForceWidth.Enabled = false;
@@ -483,8 +491,10 @@ namespace beam_form
         {
             ClearText();
             cmboTimberClass.SelectedIndex = -1;
+            cmboTimberCalcs.SelectedIndex = -1;
 
             cmboTimberClass.Enabled = true;
+            cmboTimberCalcs.Enabled = true;
 
             txtModulusElasticity.Enabled = false;
 
@@ -626,6 +636,7 @@ namespace beam_form
         }
         private void calculatebutton()
         {
+            crossSectionBeam o_crossSectionBeam = new crossSectionBeam();
             Beam o_beam = new Beam();
 
             if (txtlength.Text == "" || txtModulusElasticity.Text == "" || txtDisplacement.Text == "" || txtInertia.Text == "" || txtload.Text == "")
@@ -694,8 +705,24 @@ namespace beam_form
 
             if (radTimberBeamMD.Checked == true)
             {
-                txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D(txtModulusElasticity.Text, cmbobreadth.Text, cmbodepth.Text).ToString();
-                GraphDisplacement = (Convert.ToDecimal(0.5) * o_beam.length);
+                if (cmboTimberCalcs.Text == "")
+                {
+                    txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D(txtModulusElasticity.Text, cmbobreadth.Text, cmbodepth.Text).ToString();
+                    GraphDisplacement = (Convert.ToDecimal(0.5) * o_beam.length);
+                }
+                if (cmboTimberCalcs.Text == "variable distance/angle single point force - StressTest")
+                {
+                    txtMaxDeflection.Text = o_crossSectionBeam.CalculatePointBeamCustomDimensions(txtload, txtDisplacement, txtlength, txtForceWidth,  ).ToString;
+                }
+                if (cmboTimberCalcs.Text == "variable distance uniform force - StressTest")
+                {
+
+                }
+                if (cmboTimberCalcs.Text == "variable distance sloped uniform force - StressTest")
+                {
+
+                }
+
             }
 
             // Clear any existing series

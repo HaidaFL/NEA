@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtlength = new System.Windows.Forms.TextBox();
             this.lbllength = new System.Windows.Forms.Label();
             this.lblinertia = new System.Windows.Forms.Label();
@@ -57,6 +57,7 @@
             this.cmboTimberClass = new System.Windows.Forms.ComboBox();
             this.cmbodepth = new System.Windows.Forms.ComboBox();
             this.cmbobreadth = new System.Windows.Forms.ComboBox();
+            this.cmboTimberCalcs = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chrtDeflectionGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -240,16 +241,16 @@
             // chrtDeflectionGraph
             // 
             this.chrtDeflectionGraph.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chrtDeflectionGraph.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chrtDeflectionGraph.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chrtDeflectionGraph.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chrtDeflectionGraph.Legends.Add(legend3);
             this.chrtDeflectionGraph.Location = new System.Drawing.Point(404, 540);
             this.chrtDeflectionGraph.Name = "chrtDeflectionGraph";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chrtDeflectionGraph.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chrtDeflectionGraph.Series.Add(series3);
             this.chrtDeflectionGraph.Size = new System.Drawing.Size(1464, 471);
             this.chrtDeflectionGraph.TabIndex = 18;
             this.chrtDeflectionGraph.Text = "chart1";
@@ -307,10 +308,10 @@
             // cmboTimberClass
             // 
             this.cmboTimberClass.FormattingEnabled = true;
-            this.cmboTimberClass.Location = new System.Drawing.Point(676, 132);
+            this.cmboTimberClass.Location = new System.Drawing.Point(664, 132);
             this.cmboTimberClass.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmboTimberClass.Name = "cmboTimberClass";
-            this.cmboTimberClass.Size = new System.Drawing.Size(180, 28);
+            this.cmboTimberClass.Size = new System.Drawing.Size(76, 28);
             this.cmboTimberClass.TabIndex = 24;
             this.cmboTimberClass.TextChanged += new System.EventHandler(this.cmboTimberClass_TextChanged);
             // 
@@ -334,12 +335,23 @@
             this.cmbobreadth.Visible = false;
             this.cmbobreadth.TextChanged += new System.EventHandler(this.cmbobreadth_TextChanged);
             // 
+            // cmboTimberCalcs
+            // 
+            this.cmboTimberCalcs.Enabled = false;
+            this.cmboTimberCalcs.FormattingEnabled = true;
+            this.cmboTimberCalcs.Location = new System.Drawing.Point(883, 86);
+            this.cmboTimberCalcs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmboTimberCalcs.Name = "cmboTimberCalcs";
+            this.cmboTimberCalcs.Size = new System.Drawing.Size(388, 28);
+            this.cmboTimberCalcs.TabIndex = 27;
+            // 
             // frmBeamCalculation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1869, 1148);
+            this.Controls.Add(this.cmboTimberCalcs);
             this.Controls.Add(this.cmbobreadth);
             this.Controls.Add(this.cmbodepth);
             this.Controls.Add(this.cmboTimberClass);
@@ -403,6 +415,7 @@
         private System.Windows.Forms.ComboBox cmboTimberClass;
         private System.Windows.Forms.ComboBox cmbodepth;
         private System.Windows.Forms.ComboBox cmbobreadth;
+        private System.Windows.Forms.ComboBox cmboTimberCalcs;
     }
 }
 

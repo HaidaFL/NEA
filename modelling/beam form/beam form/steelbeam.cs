@@ -53,7 +53,7 @@ namespace beam_form
                 return MaxDeflection;
             }
         }
-        public decimal CalculateSlopeBeamCustomDimensions(decimal load, decimal beamDisplacement, decimal length, decimal w, decimal s_load, decimal e_load)
+        public decimal CalculateSlopeBeamCustomDimensions(decimal beamDisplacement, decimal length, decimal w, decimal s_load, decimal e_load)
         {
             decimal DeflectionA = 0;
             decimal DeflectionB = 0;
