@@ -10,12 +10,12 @@ namespace beam_form
 {
     internal class crossSectionBeam //with normal cross-section
     {
-        decimal sectionModulus; // it is breadth times depth^2, all divided by 6
+        decimal sectionModulus; // it is breadth times depth^2, all divided by 6, to be used if you want
 
         decimal ReactionForceA;
         decimal ReactionForceB;
 
-        public decimal CalculateUniBeamCustomDimensions(decimal load, decimal beamDisplacement, decimal length, decimal w)
+        public List<decimal> CalculateUniBeamCustomDimensions(decimal load, decimal beamDisplacement, decimal length, decimal w)
         {
             decimal DeflectionA = 0;
             decimal DeflectionB = 0;
@@ -27,7 +27,12 @@ namespace beam_form
             DeflectionB = (ReactionForceA * beamDisplacement) - (load *(power(length - (2 * beamDisplacement),2) )/2 );
 
             MaxDeflection = (ReactionForceA * (beamDisplacement + (w/2)) - (load * power(beamDisplacement + (w / 2), 2)) / 2);
-            return 0;
+
+            List <decimal> deflections = new List<decimal>();
+            deflections.Add(DeflectionA);
+            deflections.Add(DeflectionB);
+            deflections.Add(MaxDeflection);
+            return deflections;
         }
         public decimal CalculatePointBeamCustomDimensions(decimal load, decimal beamDisplacement, decimal length, decimal w, decimal forceAngle)
         {
@@ -68,7 +73,7 @@ namespace beam_form
 
             return 0;
         }
-        public decimal power(decimal value, int power)
+        public decimal power(decimal value, int power) //copy pasted the power method into this class too
         {
             if (power == 0)
             {

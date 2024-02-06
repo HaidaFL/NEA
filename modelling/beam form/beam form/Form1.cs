@@ -695,12 +695,15 @@ namespace beam_form
                 txtMaxDeflection.Text = o_beam.calcUniformAreaDeflection2D(w).ToString();
                 GraphDisplacement = o_beam.beamDisplacement + (w / 2);
 
+                graphMaker(GraphDisplacement, o_beam.length, false, 0, 0, 0, 0);
             }
 
             if (radSinglePointForce.Checked == true)
             {
                 txtMaxDeflection.Text = o_beam.calcMaxBeamDeflection2D().ToString();
                 GraphDisplacement = o_beam.beamDisplacement;
+
+                graphMaker(GraphDisplacement, o_beam.length, false, 0, 0, 0, 0);
             }
 
             if (radTimberBeamMD.Checked == true)
@@ -709,13 +712,24 @@ namespace beam_form
                 {
                     txtMaxDeflection.Text = o_beam.calcMaxTimberDeflection2D(txtModulusElasticity.Text, cmbobreadth.Text, cmbodepth.Text).ToString();
                     GraphDisplacement = (Convert.ToDecimal(0.5) * o_beam.length);
+
+                    graphMaker(GraphDisplacement, o_beam.length, false, 0, 0, 0, 0);
                 }
                 if (cmboTimberCalcs.Text == "variable distance/angle single point force - StressTest")
                 {
-                    txtMaxDeflection.Text = o_crossSectionBeam.CalculatePointBeamCustomDimensions(txtload, txtDisplacement, txtlength, txtForceWidth,  ).ToString;
+                    txtMaxDeflection.Text = o_crossSectionBeam.CalculatePointBeamCustomDimensions(Convert.ToDecimal(txtload.Text), Convert.ToDecimal(txtDisplacement.Text), Convert.ToDecimal(txtlength.Text), Convert.ToDecimal(txtForceWidth.Text), Convert.ToDecimal(txtForceAngle.Text)).ToString();
+                    txtStress.Text = (Convert.ToDecimal(txtMaxDeflection.Text) / Convert.ToDecimal(txtInertia.Text)).ToString();
+
+                    graphMaker(GraphDisplacement, o_beam.length, false, 0, 0, 0, 0);
                 }
                 if (cmboTimberCalcs.Text == "variable distance uniform force - StressTest")
                 {
+                    decimal deflectionA = o_crossSectionBeam.CalculateUniBeamCustomDimensions(Convert.ToDecimal(txtload.Text), Convert.ToDecimal(txtDisplacement.Text), Convert.ToDecimal(txtlength.Text), Convert.ToDecimal(txtForceWidth.Text))[0];
+                    decimal deflectionB = o_crossSectionBeam.CalculateUniBeamCustomDimensions(Convert.ToDecimal(txtload.Text), Convert.ToDecimal(txtDisplacement.Text), Convert.ToDecimal(txtlength.Text), Convert.ToDecimal(txtForceWidth.Text))[1];
+                    txtMaxDeflection.Text = (o_crossSectionBeam.CalculateUniBeamCustomDimensions(Convert.ToDecimal(txtload.Text), Convert.ToDecimal(txtDisplacement.Text), Convert.ToDecimal(txtlength.Text), Convert.ToDecimal(txtForceWidth.Text))[2]).ToString();
+                    txtStress.Text = (Convert.ToDecimal(txtMaxDeflection.Text) / Convert.ToDecimal(txtInertia.Text)).ToString();
+
+                    graphMaker(GraphDisplacement, o_beam.length, true, o_beam.beamDisplacement, Convert.ToDecimal(txtForceWidth.Text), deflectionA, deflectionB);
 
                 }
                 if (cmboTimberCalcs.Text == "variable distance sloped uniform force - StressTest")
@@ -724,7 +738,13 @@ namespace beam_form
                 }
 
             }
+            //graphMaker(GraphDisplacement, o_beam.length, false);
 
+
+
+        }
+        private void graphMaker(decimal GraphDisplacement, decimal _length, bool isUniform, decimal beamDisplacement, decimal forceWidth, decimal deflectionA, decimal deflectionB)
+        {
             // Clear any existing series
 
             chrtDeflectionGraph.Series.Clear();
@@ -742,8 +762,16 @@ namespace beam_form
 
             // Add data points to the series
             series.Points.AddXY(0, 0);
+            if (isUniform)
+            {
+                series.Points.AddXY(beamDisplacement, deflectionA);
+            }
             series.Points.AddXY(GraphDisplacement, -Convert.ToDecimal(txtMaxDeflection.Text));
-            series.Points.AddXY(o_beam.length, 0);
+            if (isUniform)
+            {
+                series.Points.AddXY(beamDisplacement + forceWidth, deflectionB);
+            }
+            series.Points.AddXY(_length, 0);
 
             // Add the series to the chart
             chrtDeflectionGraph.Series.Add(series);

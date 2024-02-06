@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtlength = new System.Windows.Forms.TextBox();
             this.lbllength = new System.Windows.Forms.Label();
             this.lblinertia = new System.Windows.Forms.Label();
@@ -58,6 +58,9 @@
             this.cmbodepth = new System.Windows.Forms.ComboBox();
             this.cmbobreadth = new System.Windows.Forms.ComboBox();
             this.cmboTimberCalcs = new System.Windows.Forms.ComboBox();
+            this.txtForceAngle = new System.Windows.Forms.TextBox();
+            this.txtMaxStress = new System.Windows.Forms.TextBox();
+            this.txtStress = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chrtDeflectionGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -241,16 +244,16 @@
             // chrtDeflectionGraph
             // 
             this.chrtDeflectionGraph.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.Name = "ChartArea1";
-            this.chrtDeflectionGraph.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chrtDeflectionGraph.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chrtDeflectionGraph.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chrtDeflectionGraph.Legends.Add(legend1);
             this.chrtDeflectionGraph.Location = new System.Drawing.Point(404, 540);
             this.chrtDeflectionGraph.Name = "chrtDeflectionGraph";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chrtDeflectionGraph.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chrtDeflectionGraph.Series.Add(series1);
             this.chrtDeflectionGraph.Size = new System.Drawing.Size(1464, 471);
             this.chrtDeflectionGraph.TabIndex = 18;
             this.chrtDeflectionGraph.Text = "chart1";
@@ -345,12 +348,46 @@
             this.cmboTimberCalcs.Size = new System.Drawing.Size(388, 28);
             this.cmboTimberCalcs.TabIndex = 27;
             // 
+            // txtForceAngle
+            // 
+            this.txtForceAngle.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtForceAngle.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtForceAngle.Location = new System.Drawing.Point(883, 136);
+            this.txtForceAngle.Name = "txtForceAngle";
+            this.txtForceAngle.Size = new System.Drawing.Size(50, 26);
+            this.txtForceAngle.TabIndex = 28;
+            this.txtForceAngle.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtMaxStress
+            // 
+            this.txtMaxStress.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtMaxStress.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtMaxStress.Location = new System.Drawing.Point(1362, 136);
+            this.txtMaxStress.Name = "txtMaxStress";
+            this.txtMaxStress.Size = new System.Drawing.Size(50, 26);
+            this.txtMaxStress.TabIndex = 29;
+            this.txtMaxStress.Text = "160";
+            this.txtMaxStress.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStress
+            // 
+            this.txtStress.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtStress.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtStress.Location = new System.Drawing.Point(1362, 88);
+            this.txtStress.Name = "txtStress";
+            this.txtStress.Size = new System.Drawing.Size(50, 26);
+            this.txtStress.TabIndex = 30;
+            this.txtStress.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // frmBeamCalculation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1869, 1148);
+            this.Controls.Add(this.txtStress);
+            this.Controls.Add(this.txtMaxStress);
+            this.Controls.Add(this.txtForceAngle);
             this.Controls.Add(this.cmboTimberCalcs);
             this.Controls.Add(this.cmbobreadth);
             this.Controls.Add(this.cmbodepth);
@@ -416,6 +453,9 @@
         private System.Windows.Forms.ComboBox cmbodepth;
         private System.Windows.Forms.ComboBox cmbobreadth;
         private System.Windows.Forms.ComboBox cmboTimberCalcs;
+        private System.Windows.Forms.TextBox txtForceAngle;
+        private System.Windows.Forms.TextBox txtMaxStress;
+        private System.Windows.Forms.TextBox txtStress;
     }
 }
 
